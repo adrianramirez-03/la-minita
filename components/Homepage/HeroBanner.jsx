@@ -1,12 +1,12 @@
 import React from 'react';
 import Link from 'next/link';
 
-import { urlFor } from '../lib/client';
+import { urlFor } from '../../lib/client';
 
 const HeroBanner = ({ heroBanner }) => {
   return (
     <div className="hero-banner-container">
-      <div>
+      <div className="hero-banner-contents">
         <p className="beats-solo">{heroBanner.smallText}</p>
         <h3>{heroBanner.midText}</h3>
         <img
