@@ -6,6 +6,7 @@ import {
   NavBar,
   Layout,
 } from '../components';
+import { Categories } from '../components/Homepage/Categories';
 import { client } from '../lib/client';
 
 const Home = ({ products, bannerData, menProducts }) => {
@@ -15,6 +16,7 @@ const Home = ({ products, bannerData, menProducts }) => {
         <HeroBanner
           heroBanner={bannerData.length && bannerData[1]}
         ></HeroBanner>
+        <Categories></Categories>
       </Layout>
     </>
   );
