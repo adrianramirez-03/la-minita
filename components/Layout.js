@@ -18,10 +18,10 @@ export default function Layout({ children, title }) {
         <header className={styles.header}>
           <div className={styles.navs1}>
             <div className={styles.float1}>
-              <a href="/home">LOGO</a>
+              <a href="/">LOGO</a>
             </div>
             <div className={styles.float2}>
-              <div className={styles.search}>
+              <div className={styles.searchContainer}>
                 <input
                   className={styles.search}
                   type="text"
@@ -46,16 +46,16 @@ export default function Layout({ children, title }) {
               <div className={styles.list}>
                 <ul className={styles.ul}>
                   <li className={styles.li}>
-                    <a href="#home">MEN</a>
+                    <a href="/men">MEN</a>
                   </li>
                   <li className={styles.li}>
-                    <a href="#home">WOMEN</a>
+                    <a href="/women">WOMEN</a>
                   </li>
                   <li className={styles.li}>
-                    <a href="#home">KIDS</a>
+                    <a href="/kids">KIDS</a>
                   </li>
                   <li className={styles.li}>
-                    <a href="#home">SALE</a>
+                    <a href="/specials">SALE</a>
                   </li>
                   <li className={styles.li}>
                     <a href="#home">FILLER</a>
@@ -67,7 +67,7 @@ export default function Layout({ children, title }) {
         </header>
         <main className={styles.contentContainer}>{children}</main>
         <footer className={styles.footer}>
-          Copyright 2022 La Minita Western Wear
+          Copyright © 2022 La Minita Western Wear
         </footer>
       </div>
     </>

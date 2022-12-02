@@ -17,6 +17,11 @@ const Home = ({ products, bannerData, menProducts }) => {
           heroBanner={bannerData.length && bannerData[1]}
         ></HeroBanner>
         <Categories></Categories>
+        <div className="products-container">
+          {products?.map((product) => (
+            <Product key={product._id} product={product} />
+          ))}
+        </div>
       </Layout>
     </>
   );
@@ -46,11 +51,13 @@ export default Home;
 //         <h2>Best Selling Products</h2>
 //         <p>Cowboy wear for many styles</p>
 //       </div>
-//       <div className="products-container">
-//         {products?.map((product) => (
-//           <Product key={product._id} product={product} />
-//         ))}
-//       </div>
+{
+  /* <div className="products-container">
+  {products?.map((product) => (
+    <Product key={product._id} product={product} />
+  ))}
+</div>; */
+}
 //       <div className="products-container">
 //         {menProducts?.map((menProducts) => (
 //           <Product key={menProducts._id} product={menProducts} />

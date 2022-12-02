@@ -55,8 +55,10 @@
 .search {
   width: 300px;
   height: 30px;
+  padding-left: 5px;
 }
 
+/* for padding of the contents of each page change margin-top to 0 if wanting 0 margin */
 .contentContainer {
   width: 100%;
   margin: auto;
