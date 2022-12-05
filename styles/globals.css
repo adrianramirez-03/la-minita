@@ -99,24 +99,26 @@ span.text-red {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  padding: 10px;
   gap: 15px;
   margin-top: 20px;
   width: 100%;
 }
 .product-card {
   cursor: pointer;
-  transform: scale(1, 1);
-  transition: transform 0.5s ease;
+  /* transform: scale(1, 1);
+  transition: transform 0.5s ease; */
   color: #324d67;
 }
 .product-card:hover {
-  transform: scale(1.1, 1.1);
+  /* transform: scale(1.1, 1.1); */
 }
 .product-image {
   border-radius: 15px;
   background-color: #ebebeb;
   transform: scale(1, 1);
   transition: transform 0.5s ease;
+  outline: 1px solid red;
 }
 
 .product-name {
@@ -806,4 +808,17 @@ span.text-red {
     width: 300px;
     margin: auto;
   }
+}
+
+.price-container {
+  display: flex;
+}
+
+.cross-out {
+  text-decoration: line-through;
+}
+
+.updated-price {
+  color: rgb(189, 0, 0);
+  margin-left: 5px;
 }

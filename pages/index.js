@@ -17,11 +17,11 @@ const Home = ({ products, bannerData, menProducts }) => {
           heroBanner={bannerData.length && bannerData[1]}
         ></HeroBanner>
         <Categories></Categories>
-        <div className="products-container">
+        {/* <div className="products-container">
           {products?.map((product) => (
             <Product key={product._id} product={product} />
           ))}
-        </div>
+        </div> */}
       </Layout>
     </>
   );

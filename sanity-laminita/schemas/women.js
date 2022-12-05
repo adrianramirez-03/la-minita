@@ -1,7 +1,25 @@
 export default {
-  name: 'product',
-  title: 'Product',
+  name: 'women',
+  title: 'Women Products',
   type: 'document',
+  groups: [
+    {
+      name: 'hats',
+      title: 'Hats',
+    },
+    {
+      name: 'belts',
+      title: 'Belts',
+    },
+    {
+      name: 'boots',
+      title: 'Boots',
+    },
+    {
+      name: 'shirts',
+      title: 'Shirts',
+    },
+  ],
   fields: [
     {
       name: 'image',
@@ -32,16 +50,6 @@ export default {
       type: 'number',
     },
     {
-      name: 'savings',
-      title: 'Savings Text',
-      type: 'string',
-    },
-    {
-      name: 'savingsAmount',
-      title: 'Savings Amount',
-      type: 'number',
-    },
-    {
       name: 'details',
       title: 'Details',
       type: 'string',
@@ -50,22 +58,6 @@ export default {
       name: 'quantity',
       title: 'Quantitiy',
       type: 'number',
-    },
-    {
-      title: 'Post Date',
-      name: 'postDate',
-      type: 'datetime',
-      options: {
-        timeStep: 1,
-        dateFormat: 'YYYY-MM-DD',
-      },
-    },
-  ],
-  orderings: [
-    {
-      title: 'Post Date',
-      name: 'postDateDesc',
-      by: [{ field: 'postDate', direction: 'desc' }],
     },
   ],
 };

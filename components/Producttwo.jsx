@@ -18,7 +18,7 @@ const Product = ({
           <img
             src={urlFor(image && image[0])}
             width={300}
-            height={300}
+            height={360}
             className="product-image"
           />
           <p className="product-name">{name}</p>

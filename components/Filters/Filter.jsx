@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState, useCallback, useEffect } from 'react';
 import styles from '../../styles/filter.module.css';
+import Producttwo from '../Producttwo';
 import Product from '../Product';
 
 export const Filter = ({ category, products }) => {
@@ -29,16 +30,21 @@ export const Filter = ({ category, products }) => {
 
     return targetReached;
   };
-  const isBreakpoint = useMediaQuery(800);
+  const isBreakpoint = useMediaQuery(500);
 
   return (
     <>
       {isBreakpoint ? (
         <div className={styles.hiddenFilterContainer}>
-          <button className={styles.filterButton}> Show Filters</button>
+          <button className={styles.filterButton}>Show Filters</button>
           <div className={styles.smallContainer}>
-            <div className={styles.leftSmall}></div>
-            <div className={styles.rightSmall}></div>
+            {products?.map((product) => (
+              <Producttwo
+                category={category}
+                key={product._id}
+                product={product}
+              />
+            ))}
           </div>
         </div>
       ) : (
@@ -47,7 +53,7 @@ export const Filter = ({ category, products }) => {
           <div className={styles.right}>
             <div className="products-container">
               {products?.map((product) => (
-                <Product
+                <Producttwo
                   category={category}
                   key={product._id}
                   product={product}
