@@ -4,7 +4,7 @@ import styles from '../../styles/filter.module.css';
 import Producttwo from '../Producttwo';
 import Product from '../Product';
 
-export const Filter = ({ category, products }) => {
+export const Filter = ({ mainCategory, products }) => {
   const useMediaQuery = (width) => {
     const [targetReached, setTargetReached] = useState(false);
 
@@ -40,7 +40,7 @@ export const Filter = ({ category, products }) => {
           <div className={styles.smallContainer}>
             {products?.map((product) => (
               <Producttwo
-                category={category}
+                mainCategory={mainCategory}
                 key={product._id}
                 product={product}
               />
@@ -54,7 +54,7 @@ export const Filter = ({ category, products }) => {
             <div className="products-container">
               {products?.map((product) => (
                 <Producttwo
-                  category={category}
+                  mainCategory={mainCategory}
                   key={product._id}
                   product={product}
                 />

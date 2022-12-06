@@ -1,25 +1,7 @@
 export default {
-  name: 'women',
-  title: 'Women Products',
+  name: 'womenBoot',
+  title: 'Women Boots',
   type: 'document',
-  groups: [
-    {
-      name: 'hats',
-      title: 'Hats',
-    },
-    {
-      name: 'belts',
-      title: 'Belts',
-    },
-    {
-      name: 'boots',
-      title: 'Boots',
-    },
-    {
-      name: 'shirts',
-      title: 'Shirts',
-    },
-  ],
   fields: [
     {
       name: 'image',
@@ -56,8 +38,18 @@ export default {
     },
     {
       name: 'quantity',
-      title: 'Quantitiy',
+      title: 'Quantity',
       type: 'number',
+    },
+    {
+      name: 'color',
+      title: 'Color',
+      type: 'colorPicker',
+    },
+    {
+      name: 'dateCreated',
+      title: 'Date Created',
+      type: 'datetime',
     },
   ],
 };

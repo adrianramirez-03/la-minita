@@ -1,6 +1,6 @@
 export default {
-  name: 'product',
-  title: 'Product',
+  name: 'womenHat',
+  title: 'Women Hats',
   type: 'document',
   fields: [
     {
@@ -32,23 +32,13 @@ export default {
       type: 'number',
     },
     {
-      name: 'savings',
-      title: 'Savings Text',
-      type: 'string',
-    },
-    {
-      name: 'savingsAmount',
-      title: 'Savings Amount',
-      type: 'number',
-    },
-    {
       name: 'details',
       title: 'Details',
       type: 'string',
     },
     {
       name: 'quantity',
-      title: 'Quantitiy',
+      title: 'Quantity',
       type: 'number',
     },
     {
@@ -57,20 +47,9 @@ export default {
       type: 'colorPicker',
     },
     {
-      title: 'Post Date',
-      name: 'postDate',
+      name: 'dateCreated',
+      title: 'Date Created',
       type: 'datetime',
-      options: {
-        timeStep: 1,
-        dateFormat: 'YYYY-MM-DD',
-      },
-    },
-  ],
-  orderings: [
-    {
-      title: 'Post Date',
-      name: 'postDateDesc',
-      by: [{ field: 'postDate', direction: 'desc' }],
     },
   ],
 };

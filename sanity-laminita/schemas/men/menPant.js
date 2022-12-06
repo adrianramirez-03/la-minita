@@ -1,6 +1,6 @@
 export default {
-  name: 'product',
-  title: 'Product',
+  name: 'menPant',
+  title: 'Men Pants',
   type: 'document',
   fields: [
     {
@@ -16,6 +16,23 @@ export default {
       name: 'name',
       title: 'Name',
       type: 'string',
+    },
+    {
+      name: 'itemCategory',
+      title: 'Item Category',
+      type: 'string',
+    },
+    {
+      name: 'width',
+      title: 'Size Width',
+      type: 'array',
+      of: [{ type: 'number' }],
+    },
+    {
+      name: 'length',
+      title: 'Size Length',
+      type: 'array',
+      of: [{ type: 'number' }],
     },
     {
       name: 'slug',

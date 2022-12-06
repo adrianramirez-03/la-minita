@@ -1,6 +1,6 @@
 export default {
-  name: 'men',
-  title: 'Men Products',
+  name: 'womenBelt',
+  title: 'Women Belts',
   type: 'document',
   fields: [
     {
@@ -38,8 +38,18 @@ export default {
     },
     {
       name: 'quantity',
-      title: 'Quantitiy',
+      title: 'Quantity',
       type: 'number',
+    },
+    {
+      name: 'color',
+      title: 'Color',
+      type: 'colorPicker',
+    },
+    {
+      name: 'dateCreated',
+      title: 'Date Created',
+      type: 'datetime',
     },
   ],
 };
