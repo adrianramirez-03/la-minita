@@ -8,6 +8,7 @@ import womenBelt from './women/womenBelt';
 import womenBoot from './women/womenBoot';
 import womenHat from './women/womenHat';
 import womenShirt from './women/womenShirt';
+import womenPant from './women/womenPant';
 
 import menHat from './men/menHat';
 import menBelt from './men/menBelt';
@@ -22,10 +23,12 @@ export default createSchema({
     womenBoot,
     womenHat,
     womenShirt,
+    womenPant,
     menHat,
     menShirt,
     menPant,
     menBelt,
     menBoot,
+    banner,
   ]),
 });

@@ -31,7 +31,7 @@
 }
 
 .right {
-  width: 76.9%;
+  width: calc(100% - 300px);
   outline: 1px solid blue;
 }
 
@@ -55,4 +55,36 @@
 .rightSmall {
   width: 44vw;
   outline: 1px solid green;
+}
+
+@media screen and (max-width: 1900px) {
+}
+
+.navs2 {
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ul {
+  list-style-type: none;
+  margin: 0;
+  margin-top: -20px;
+}
+.li {
+  display: inline;
+  padding-right: 40px;
+  font-size: 20px;
+}
+.li:last-child {
+  padding-right: 0px;
+}
+
+@media screen and (max-width: 750px) {
+  .li {
+    display: inline;
+    padding-right: 32px;
+    font-size: 20px;
+  }
 }

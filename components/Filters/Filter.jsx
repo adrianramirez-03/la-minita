@@ -3,8 +3,9 @@ import { useState, useCallback, useEffect } from 'react';
 import styles from '../../styles/filter.module.css';
 import Producttwo from '../Producttwo';
 import Product from '../Product';
+import { LeftFilter } from './LeftFilter';
 
-export const Filter = ({ mainCategory, products }) => {
+export const Filter = ({ mainCategory, category, products }) => {
   const useMediaQuery = (width) => {
     const [targetReached, setTargetReached] = useState(false);
 
@@ -30,7 +31,28 @@ export const Filter = ({ mainCategory, products }) => {
 
     return targetReached;
   };
-  const isBreakpoint = useMediaQuery(500);
+  const isBreakpoint = useMediaQuery(750);
+
+  const widthMap = new Map();
+  const heightMap = new Map();
+  products.forEach((product) => {
+    if (product.itemCategory == 'pants') {
+      widthMap[product.itemCategory] = 275;
+      heightMap[product.itemCategory] = 300;
+    } else if (product.itemCategory == 'shirts') {
+      widthMap[product.itemCategory] = 275;
+      heightMap[product.itemCategory] = 300;
+    } else if (product.itemCategory == 'boots') {
+      widthMap[product.itemCategory] = 275;
+      heightMap[product.itemCategory] = 300;
+    } else if (product.itemCategory == 'belts') {
+      widthMap[product.itemCategory] = 300;
+      heightMap[product.itemCategory] = 200;
+    } else {
+      widthMap[product.itemCategory] = 300;
+      heightMap[product.itemCategory] = 230;
+    }
+  });
 
   return (
     <>
@@ -43,13 +65,18 @@ export const Filter = ({ mainCategory, products }) => {
                 mainCategory={mainCategory}
                 key={product._id}
                 product={product}
+                productWidth={widthMap[product.itemCategory]}
+                productHeight={heightMap[product.itemCategory]}
               />
             ))}
           </div>
         </div>
       ) : (
         <div className={styles.container}>
-          <div className={styles.left}></div>
+          <div className={styles.left}>
+            {category.toUpperCase()}
+            <LeftFilter />
+          </div>
           <div className={styles.right}>
             <div className="products-container">
               {products?.map((product) => (
@@ -57,6 +84,8 @@ export const Filter = ({ mainCategory, products }) => {
                   mainCategory={mainCategory}
                   key={product._id}
                   product={product}
+                  productWidth={widthMap[product.itemCategory]}
+                  productHeight={heightMap[product.itemCategory]}
                 />
               ))}
             </div>

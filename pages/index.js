@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  Product,
-  FooterBanner,
-  HeroBanner,
-  NavBar,
-  Layout,
-} from '../components';
+import { Product, FooterBanner, HeroBanner, Layout } from '../components';
 import { Categories } from '../components/Homepage/Categories';
 import { client } from '../lib/client';
 

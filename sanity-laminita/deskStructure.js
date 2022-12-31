@@ -6,31 +6,6 @@ export default () =>
     .title('Base')
     .items([
       S.listItem()
-        .title('Women')
-        .child(
-          S.list()
-            // Sets a title for our new list
-            .title('Women Categories')
-            // Add items to the array
-            // Each will pull one of our new singletons
-            .items([
-              S.listItem()
-                .title('Hats')
-                .child(S.documentTypeList('womenHat').title('Hats')),
-              S.listItem()
-                .title('Shirts')
-                .child(S.documentTypeList('womenShirt').title('Hats')),
-              S.listItem()
-                .title('Belts')
-                .child(S.documentTypeList('womenBelt').title('Belts')),
-              S.listItem()
-                .title('Boots')
-                .child(S.documentTypeList('womenBoot').title('Boots')),
-            ])
-        ),
-      ,
-      // We also need to remove the new singletons from the main list
-      S.listItem()
         .title('Men')
         .child(
           S.list()
@@ -56,6 +31,36 @@ export default () =>
                 .child(S.documentTypeList('menBoot').title('Boots')),
             ])
         ),
+      S.listItem()
+        .title('Women')
+        .child(
+          S.list()
+            // Sets a title for our new list
+            .title('Women Categories')
+            // Add items to the array
+            // Each will pull one of our new singletons
+            .items([
+              S.listItem()
+                .title('Hats')
+                .child(S.documentTypeList('womenHat').title('Hats')),
+              S.listItem()
+                .title('Shirts')
+                .child(S.documentTypeList('womenShirt').title('Hats')),
+              S.listItem()
+                .title('Belts')
+                .child(S.documentTypeList('womenBelt').title('Belts')),
+              S.listItem()
+                .title('Pants')
+                .child(S.documentTypeList('womenPant').title('Pants')),
+              S.listItem()
+                .title('Boots')
+                .child(S.documentTypeList('womenBoot').title('Boots')),
+            ])
+        ),
+      S.listItem()
+        .title('Banners')
+        .child(S.documentTypeList('banner').title('Banners')),
+
       // We also need to remove the new singletons from the main list
       ...S.documentTypeListItems().filter(
         (listItem) =>
@@ -69,6 +74,8 @@ export default () =>
             'womenBelt',
             'womenShirt',
             'womenBoot',
+            'womenPant',
+            'banner',
           ].includes(listItem.getId())
       ),
     ]);

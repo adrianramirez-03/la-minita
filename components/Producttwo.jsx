@@ -16,6 +16,8 @@ const Product = ({
     savings,
     savingsAmount,
   },
+  productWidth,
+  productHeight,
 }) => {
   let discount = price * savingsAmount;
   discount = discount.toFixed(2);
@@ -26,12 +28,14 @@ const Product = ({
     <div>
       <Link href={`/${mainCategory}/${itemCategory}/${slug.current}`}>
         <div className="product-card">
-          <img
-            src={urlFor(image && image[0])}
-            width={itemCategory == 'hats' ? 300 : 300}
-            height={itemCategory == 'hats' ? 220 : 360}
-            className="product-image"
-          />
+          <div className="image-container">
+            <img
+              src={urlFor(image && image[0])}
+              width={productWidth}
+              height={productHeight}
+              className="product-image"
+            />
+          </div>
           <p className="product-name">{name}</p>
           <div>
             {savings ? (
