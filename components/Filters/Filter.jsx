@@ -128,7 +128,7 @@ export const Filter = ({ mainCategory, category, products }) => {
             </div>
             <div class="button-container">
               <div class="product-number">
-                Showing {totalDisplayed} of {products.length} products
+                Showing {totalDisplayed} of {products.length} productss
               </div>
               <div>
                 {currentPage * 9 < products.length && (
