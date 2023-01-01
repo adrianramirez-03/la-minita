@@ -106,7 +106,6 @@ span.text-red {
   margin-left: 23px;
   padding: 10px;
   gap: 15px;
-  margin-top: 15px;
   width: 100%;
 }
 .product-card {
@@ -115,7 +114,7 @@ span.text-red {
   transition: transform 0.5s ease; */
   color: #324d67;
   margin-bottom: 10px;
-  outline: 1px solid blue;
+  outline: 1px solid rgb(109, 109, 109);
   /* width: 300px; */
   height: 100%;
 }
@@ -126,7 +125,7 @@ span.text-red {
 .image-container {
   width: 300px;
   height: 300px;
-  outline: 1px solid green;
+  outline: 1px solid rgb(109, 109, 109);
 
   /* centering image in the image container */
   display: flex;
@@ -139,11 +138,14 @@ span.text-red {
   background-color: #ffffff;
   /* transform: scale(1, 1); */
   /* transition: transform 0.5s ease; */
-  outline: 1px solid red;
+  /* outline: 1px solid red; */
 }
 
 .product-name {
   font-weight: 500;
+}
+.product-name:hover {
+  text-decoration: underline;
 }
 .product-price {
   font-weight: 800;
@@ -853,7 +855,7 @@ span.text-red {
   }
   .product-image {
     width: 260px;
-    height: 300px;
+    height: 270px;
   }
   .image-container {
     width: 260px;
@@ -878,7 +880,7 @@ span.text-red {
 
 .ecommerce-filter-category {
   /* Style each category container */
-  margin: 10px 0;
+  margin: 15px 0;
 }
 
 .ecommerce-filter-category h3 {
@@ -965,4 +967,32 @@ span.text-red {
   text-decoration: underline;
   cursor: pointer;
   margin-top: 2px;
+}
+
+.button-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.product-number {
+  font-size: 14px;
+  margin-top: 4px;
+  position: absolute;
+}
+
+#filter-button-15 {
+  margin: 25px 0;
+  padding: 8px 16px;
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+#filter-button-15:hover {
+  background-color: rgb(47, 47, 47);
 }

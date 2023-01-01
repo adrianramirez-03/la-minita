@@ -7,6 +7,10 @@ import { LeftFilter } from './LeftFilter';
 
 export const Filter = ({ mainCategory, category, products }) => {
   const [isShown, setIsShown] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalDisplayed, setTotalDisplayed] = useState(
+    products.length < 9 ? products.length : 9
+  );
 
   const useMediaQuery = (width) => {
     const [targetReached, setTargetReached] = useState(false);
@@ -65,6 +69,12 @@ export const Filter = ({ mainCategory, category, products }) => {
     setIsShown(!isShown);
   };
 
+  //used to keep track of the 'load more' button
+  function handleNextPage() {
+    setCurrentPage(currentPage + 1);
+    setTotalDisplayed(Math.min(totalDisplayed + 9, products.length));
+  }
+
   return (
     <>
       {isBreakpoint ? (
@@ -106,7 +116,7 @@ export const Filter = ({ mainCategory, category, products }) => {
           </div>
           <div className={styles.right}>
             <div className="products-container">
-              {products?.map((product) => (
+              {products.slice(0, currentPage * 9).map((product) => (
                 <Producttwo
                   mainCategory={mainCategory}
                   key={product._id}
@@ -115,6 +125,18 @@ export const Filter = ({ mainCategory, category, products }) => {
                   productHeight={heightMap[product.itemCategory]}
                 />
               ))}
+            </div>
+            <div class="button-container">
+              <div class="product-number">
+                Showing {totalDisplayed} of {products.length} products
+              </div>
+              <div>
+                {currentPage * 9 < products.length && (
+                  <button id="filter-button-15" onClick={handleNextPage}>
+                    Load more products
+                  </button>
+                )}
+              </div>
             </div>
           </div>
         </div>

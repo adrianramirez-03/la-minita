@@ -36,8 +36,8 @@
 
 .left {
   width: 290px;
-  height: 1500px;
-  outline: 1px solid red;
+  /* outline: 1px solid black; */
+  border-right: 0.5px solid black;
   margin-right: 10px;
   padding: 0 10px;
   padding-top: 10px;
@@ -45,7 +45,7 @@
 
 .right {
   width: calc(100% - 300px);
-  outline: 1px solid blue;
+  /* outline: 1px solid blue; */
 }
 
 .hiddenFilterContainer {
