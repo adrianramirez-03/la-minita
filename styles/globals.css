@@ -863,6 +863,7 @@ span.text-red {
   display: flex;
   flex-direction: column;
   font-family: 'Inter', sans-serif;
+  margin-top: 10px;
 }
 
 .ecommerce-filter h2 {
@@ -953,7 +954,7 @@ span.text-red {
 
 #filter-button:hover {
   /* Style the "Filter" button on hover */
-  background-color: #2980b9;
+  background-color: rgb(47, 47, 47);
 }
 
 .viewAll {

@@ -3,9 +3,11 @@ import { useState, useCallback, useEffect } from 'react';
 import styles from '../../styles/filter.module.css';
 import Producttwo from '../Producttwo';
 import Product from '../Product';
-import { EcommerceFilter } from '../Filters/EcommerceFilter';
+import { LeftFilter } from './LeftFilter';
 
 export const Filter = ({ mainCategory, category, products }) => {
+  const [isShown, setIsShown] = useState(false);
+
   const useMediaQuery = (width) => {
     const [targetReached, setTargetReached] = useState(false);
 
@@ -58,11 +60,32 @@ export const Filter = ({ mainCategory, category, products }) => {
     // Here, you can use the selectedOptions object to filter the products based on the selections made by the user.
     console.log(selectedOptions);
   }
+
+  const displayFilter = () => {
+    setIsShown(!isShown);
+  };
+
   return (
     <>
       {isBreakpoint ? (
         <div className={styles.hiddenFilterContainer}>
-          <button className={styles.filterButton}>Show Filters</button>
+          {!isShown ? (
+            <button
+              onClick={displayFilter}
+              className={styles.filterButtonHidden}
+            >
+              Show Filter
+            </button>
+          ) : (
+            <button
+              onClick={displayFilter}
+              className={styles.filterButtonShown}
+            >
+              Hide Filter
+            </button>
+          )}
+
+          {isShown && <LeftFilter />}
           <div className={styles.smallContainer}>
             {products?.map((product) => (
               <Producttwo
@@ -79,7 +102,7 @@ export const Filter = ({ mainCategory, category, products }) => {
         <div className={styles.container}>
           <div className={styles.left}>
             {category.toUpperCase()}
-            <EcommerceFilter onFilter={handleFilter} />
+            <LeftFilter onFilter={handleFilter} />
           </div>
           <div className={styles.right}>
             <div className="products-container">
