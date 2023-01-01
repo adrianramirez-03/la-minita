@@ -3,7 +3,7 @@ import { useState, useCallback, useEffect } from 'react';
 import styles from '../../styles/filter.module.css';
 import Producttwo from '../Producttwo';
 import Product from '../Product';
-import { LeftFilter } from './LeftFilter';
+import { EcommerceFilter } from '../Filters/EcommerceFilter';
 
 export const Filter = ({ mainCategory, category, products }) => {
   const useMediaQuery = (width) => {
@@ -54,6 +54,10 @@ export const Filter = ({ mainCategory, category, products }) => {
     }
   });
 
+  function handleFilter(selectedOptions) {
+    // Here, you can use the selectedOptions object to filter the products based on the selections made by the user.
+    console.log(selectedOptions);
+  }
   return (
     <>
       {isBreakpoint ? (
@@ -75,7 +79,7 @@ export const Filter = ({ mainCategory, category, products }) => {
         <div className={styles.container}>
           <div className={styles.left}>
             {category.toUpperCase()}
-            <LeftFilter />
+            <EcommerceFilter onFilter={handleFilter} />
           </div>
           <div className={styles.right}>
             <div className="products-container">

@@ -10,7 +10,11 @@ const mens = ({ menProducts }) => {
     <>
       <Layout title="Men Boots">
         <Categories />
-        <Filter mainCategory="men" products={menProducts}></Filter>
+        <Filter
+          category="Men's Boots"
+          mainCategory="men"
+          products={menProducts}
+        ></Filter>
       </Layout>
     </>
   );

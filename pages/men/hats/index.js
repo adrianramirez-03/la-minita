@@ -12,7 +12,7 @@ const mens = ({ menProducts }) => {
         <Categories />
         <Filter
           mainCategory="men"
-          category="hats"
+          category="men's hats"
           products={menProducts}
         ></Filter>
       </Layout>

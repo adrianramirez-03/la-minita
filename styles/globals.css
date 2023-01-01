@@ -1,10 +1,14 @@
+@font-face {
+  font-family: 'Inter';
+  src: url('https://fonts.googleapis.com/css?family=Inter');
+}
+
 html,
 body,
 * {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: 'Inter', sans-serif;
   box-sizing: border-box;
 }
 ::-webkit-scrollbar {
@@ -851,4 +855,105 @@ span.text-red {
     width: 260px;
     height: 360px;
   }
+}
+
+/* Leftside Filter */
+.ecommerce-filter {
+  /* Style the overall filter container */
+  display: flex;
+  flex-direction: column;
+  font-family: 'Inter', sans-serif;
+}
+
+.ecommerce-filter h2 {
+  /* Style the "Filter" heading */
+  font-size: 24px;
+  margin: 0 0 0 0;
+}
+
+.ecommerce-filter-category {
+  /* Style each category container */
+  margin: 10px 0;
+}
+
+.ecommerce-filter-category h3 {
+  /* Style the heading for each category */
+  font-size: 24px;
+  font-weight: 100;
+  margin: 0 0 8px 0;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none;
+  cursor: pointer;
+}
+/* Used to make the opening transition smooth*/
+.ecommerce-filter-category h3::before {
+  content: '';
+  display: inline-block;
+  border: solid transparent;
+  border-width: 10px 10px 0;
+  border-top-color: #333;
+  margin-right: 0.5em;
+  transform: rotate(-90deg);
+  transition: transform 0.3s;
+  float: right;
+}
+.ecommerce-filter-category.open h3::before {
+  transform: rotate(0deg);
+}
+
+.ecommerce-filter-options {
+  overflow: hidden;
+  height: auto;
+  max-height: 0;
+  transition: max-height 1s;
+}
+.ecommerce-filter-category.open .ecommerce-filter-options {
+  max-height: 500px;
+}
+/* End of animation*/
+
+.ecommerce-filter-category input[type='checkbox'] {
+  /* Style the checkboxes for each category */
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.ecommerce-filter-category input[type='checkbox'] + label {
+  /* Style the labels for each checkbox */
+  cursor: pointer;
+  margin: 0 0 8px 0;
+  font-size: 16px;
+}
+
+.ecommerce-filter-category input[type='checkbox']:checked + label {
+  /* Style the labels for checked checkboxes */
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+#filter-button {
+  /* Style the "Filter" button */
+  margin: 16px 0;
+  padding: 8px 16px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+#filter-button:hover {
+  /* Style the "Filter" button on hover */
+  background-color: #2980b9;
+}
+
+.viewAll {
+  text-decoration: underline;
+  cursor: pointer;
+  margin-top: 2px;
 }
