@@ -893,16 +893,20 @@ span.text-red {
 .ecommerce-filter-category h3::before {
   content: '';
   display: inline-block;
-  border: solid transparent;
-  border-width: 10px 10px 0;
-  border-top-color: #333;
-  margin-right: 0.5em;
-  transform: rotate(-90deg);
+  width: 11px;
+  height: 11px;
+  background: transparent;
+  border-top: solid #333;
+  border-right: solid #333;
+  transform: rotate(45deg);
+  margin-right: 0.3em;
   transition: transform 0.3s;
   float: right;
+  position: relative;
+  top: 7px;
 }
 .ecommerce-filter-category.open h3::before {
-  transform: rotate(0deg);
+  transform: rotate(135deg);
 }
 
 .ecommerce-filter-options {
@@ -937,9 +941,9 @@ span.text-red {
 
 #filter-button {
   /* Style the "Filter" button */
-  margin: 16px 0;
+  margin: 25px 0;
   padding: 8px 16px;
-  background-color: #3498db;
+  background-color: black;
   color: white;
   border: none;
   border-radius: 4px;

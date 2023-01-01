@@ -184,7 +184,7 @@ export const EcommerceFilter = ({ onFilter }) => {
     <div class="ecommerce-filter">
       {/* <h2>Filter</h2> */}
       <div class={`ecommerce-filter-category ${showSizes ? 'open' : ''}`}>
-        <h3 onClick={collapseSizes}>Size</h3>
+        <h3 onClick={collapseSizes}>SIZE</h3>
         <div class="ecommerce-filter-options">
           {showSizes &&
             sizes.slice(0, 6).map((size) => (
@@ -224,7 +224,7 @@ export const EcommerceFilter = ({ onFilter }) => {
       </div>
 
       <div class={`ecommerce-filter-category ${showBrands ? 'open' : ''}`}>
-        <h3 onClick={collapseBrands}>Brand</h3>
+        <h3 onClick={collapseBrands}>BRAND</h3>
         <div class="ecommerce-filter-options">
           {showBrands &&
             brands.slice(0, 6).map((brand) => (
@@ -264,7 +264,7 @@ export const EcommerceFilter = ({ onFilter }) => {
         )}
       </div>
       <div class={`ecommerce-filter-category ${showStyles ? 'open' : ''}`}>
-        <h3 onClick={collapseStyles}>Style</h3>
+        <h3 onClick={collapseStyles}>STYLE</h3>
         <div class="ecommerce-filter-options">
           {showStyles &&
             styles.slice(0, 6).map((style) => (
@@ -303,7 +303,7 @@ export const EcommerceFilter = ({ onFilter }) => {
         )}
       </div>
       <div class={`ecommerce-filter-category ${showSkins ? 'open' : ''}`}>
-        <h3 onClick={collapseSkins}>Skin</h3>
+        <h3 onClick={collapseSkins}>SKIN</h3>
         <div class="ecommerce-filter-options">
           {showSkins &&
             skins.slice(0, 6).map((skin) => (
@@ -342,7 +342,7 @@ export const EcommerceFilter = ({ onFilter }) => {
         )}
       </div>
       <div class={`ecommerce-filter-category ${showColors ? 'open' : ''}`}>
-        <h3 onClick={collapseColors}>Color</h3>
+        <h3 onClick={collapseColors}>COLOR</h3>
         <div class="ecommerce-filter-options">
           {showColors &&
             colors.slice(0, 6).map((color) => (
@@ -380,7 +380,9 @@ export const EcommerceFilter = ({ onFilter }) => {
           </div>
         )}
       </div>
-      <button onClick={handleFilter}>Apply Filter</button>
+      <button id="filter-button" onClick={handleFilter}>
+        Apply Filter
+      </button>
     </div>
   );
 };
