@@ -4,6 +4,7 @@ import styles from '../../styles/filter.module.css';
 import Producttwo from '../Producttwo';
 import Product from '../Product';
 import { LeftFilter } from './LeftFilter';
+import { SortFilter } from './SortFilter';
 
 export const Filter = ({ mainCategory, category, products }) => {
   const [isShown, setIsShown] = useState(false);
@@ -75,6 +76,17 @@ export const Filter = ({ mainCategory, category, products }) => {
     setTotalDisplayed(Math.min(totalDisplayed + 9, products.length));
   }
 
+  //sort filter by price, date posted is postponed until launch
+
+  // const [sortedProducts, setSortedProducts] = useState();
+  // const [displayedProducts, setDisplayedProducts] = useState(products);
+
+  // useEffect(() => {
+  //   if (sortedProducts) {
+  //     setDisplayedProducts(sortedProducts);
+  //   }
+  // }, [sortedProducts]);
+
   return (
     <>
       {isBreakpoint ? (
@@ -112,6 +124,10 @@ export const Filter = ({ mainCategory, category, products }) => {
         <div className={styles.container}>
           <div className={styles.left}>
             {category.toUpperCase()}
+            {/* <SortFilter
+              products={products}
+              setSortedProducts={setSortedProducts}
+            /> */}
             <LeftFilter onFilter={handleFilter} />
           </div>
           <div className={styles.right}>
@@ -126,13 +142,16 @@ export const Filter = ({ mainCategory, category, products }) => {
                 />
               ))}
             </div>
-            <div class="button-container">
-              <div class="product-number">
+            <div className={styles.buttonContainer}>
+              <div className={styles.productNumber}>
                 Showing {totalDisplayed} of {products.length} products
               </div>
               <div>
                 {currentPage * 9 < products.length && (
-                  <button id="filter-button-15" onClick={handleNextPage}>
+                  <button
+                    className={styles.filterButton15}
+                    onClick={handleNextPage}
+                  >
                     Load more products
                   </button>
                 )}

@@ -1,7 +1,7 @@
-@font-face {
+/* @font-face {
   font-family: 'Inter';
   src: url('https://fonts.googleapis.com/css?family=Inter');
-}
+} */
 
 html,
 body,
@@ -969,7 +969,7 @@ span.text-red {
   margin-top: 2px;
 }
 
-.button-container {
+/* .button-container {
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -995,4 +995,4 @@ span.text-red {
 
 #filter-button-15:hover {
   background-color: rgb(47, 47, 47);
-}
+} */
