@@ -1,10 +1,16 @@
 import { useRouter } from 'next/router';
+import Layout from '../../../components/Layout';
 
 const Post = () => {
   const router = useRouter();
   const { slug } = router.query;
 
-  return <p>Post: {slug}</p>;
+  return (
+    <>
+      <Layout title={`${slug}`} />
+      <div>Post: {slug}</div>
+    </>
+  );
 };
 
 export default Post;

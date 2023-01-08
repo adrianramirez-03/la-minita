@@ -8,7 +8,7 @@ import { Categories } from '../../../components/Filters/Categories';
 const mens = ({ menProducts }) => {
   return (
     <>
-      <Layout title="Men Hats">
+      <Layout title="Men's Hats">
         <Categories />
         <Filter
           mainCategory="men"

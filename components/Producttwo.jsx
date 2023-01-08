@@ -25,7 +25,7 @@ const Product = ({
   updatedPrice = updatedPrice.toFixed(2);
 
   return (
-    <div>
+    <div className="productContainer">
       <Link href={`/${mainCategory}/${itemCategory}/${slug.current}`}>
         <div className="product-card">
           <div className="image-container">
