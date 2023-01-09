@@ -54,7 +54,10 @@ export const ProductPage = ({
                   key={i}
                   src={urlFor(item)}
                   className={styles.smallImage}
-                  onMouseEnter={() => setIndex(i)}
+                  onClick={() => setIndex(i)}
+                  style={{
+                    opacity: index === i ? '75%' : '100%',
+                  }}
                 />
               ))}
             </div>

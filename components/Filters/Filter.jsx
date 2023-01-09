@@ -75,7 +75,7 @@ export const Filter = ({ mainCategory, category, products }) => {
     setTotalDisplayed(Math.min(totalDisplayed + 9, products.length));
   }
 
-  console.log(products);
+  // console.log(products);
   return (
     <>
       {isBreakpoint ? (
