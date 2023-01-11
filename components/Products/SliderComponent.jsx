@@ -6,6 +6,8 @@ import Link from 'next/link';
 export const SliderComponent = ({
   mainCategory,
   product: { image, name, price, itemCategory, slug },
+  width,
+  height,
 }) => {
   return (
     <>
@@ -14,8 +16,8 @@ export const SliderComponent = ({
           <div className={styles.sliderImageContainer}>
             <img
               src={urlFor(image && image[0])}
-              height={100}
-              width={150}
+              height={height}
+              width={width}
               className="product-image"
             />
           </div>

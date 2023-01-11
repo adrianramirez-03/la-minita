@@ -54,11 +54,11 @@ export default {
       title: 'Savings Amount',
       type: 'number',
     },
-    {
-      name: 'details',
-      title: 'Details',
-      type: 'string',
-    },
+    // {
+    //   name: 'details',
+    //   title: 'Details',
+    //   type: 'string',
+    // },
     {
       name: 'description',
       title: 'Description Bullet Points',

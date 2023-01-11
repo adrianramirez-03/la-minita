@@ -18,11 +18,16 @@ const Post = ({ product, menBelts }) => {
           otherMenProducts={otherMenBelts}
           mainCategory="men"
           product={product}
-          menBelts={menBelts}
+          width={500}
+          height={350}
         />
         <div className={styles.sliderDetailsContainer}>
           <div className={styles.productSliderComponent}>
-            <ProductSlider otherMenProducts={otherMenBelts} />
+            <ProductSlider
+              otherMenProducts={otherMenBelts}
+              height={100}
+              width={150}
+            />
           </div>
           <div className={styles.productDetailsComponent}>
             <ProductDetails details={product.description} />

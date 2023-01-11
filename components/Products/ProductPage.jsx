@@ -13,13 +13,23 @@ export const ProductPage = ({
     color,
     itemCategory,
     quantity,
+    savings,
+    savingsAmount,
   },
-  menBelts,
+  width,
+  height,
   mainCategory,
 }) => {
   const [selectedSize, setSelectedSize] = useState(null); //keep track of size selected
   const [amount, setAmount] = useState(1); //keep track of quantity a customer wants to buy
   const [index, setIndex] = useState(0); //keep track of image index
+
+  //calculating discounts if they exits
+  let discount = price * savingsAmount;
+  discount = discount.toFixed(2);
+  let updatedPrice = price - discount;
+  updatedPrice = updatedPrice.toFixed(2);
+  let savingsWhole = savingsAmount * 100;
 
   const handleSizeClicked = (size) => {
     setSelectedSize(size);
@@ -32,6 +42,26 @@ export const ProductPage = ({
   const handleQuantitySub = () => {
     setAmount(Math.max(amount - 1, 1));
   };
+
+  //height and width map to pass specific sizes for each category
+  const widthMap = new Map();
+  const heightMap = new Map();
+
+  widthMap['hats'] = 85;
+  heightMap['hats'] = 65;
+
+  widthMap['pants'] = 75;
+  heightMap['pants'] = 75;
+
+  widthMap['shirts'] = 70;
+  heightMap['shirts'] = 75;
+
+  widthMap['boots'] = 75;
+  heightMap['boots'] = 75;
+
+  widthMap['belts'] = 75;
+  heightMap['belts'] = 65;
+  //
 
   return (
     <>
@@ -57,6 +87,8 @@ export const ProductPage = ({
                   onClick={() => setIndex(i)}
                   style={{
                     opacity: index === i ? '75%' : '100%',
+                    height: heightMap[itemCategory],
+                    width: widthMap[itemCategory],
                   }}
                 />
               ))}
@@ -68,6 +100,8 @@ export const ProductPage = ({
               <img
                 src={urlFor(image && image[index])}
                 className={styles.productImage}
+                width={width}
+                height={height}
               />
             </div>
           </div>
@@ -76,7 +110,17 @@ export const ProductPage = ({
             <div className={styles.informationContainer}>
               <p className={styles.store}>La Minita Wear</p>
               <h3 className={styles.name}>{name}</h3>
-              <p className={styles.price}>${price}</p>
+
+              {savings ? (
+                <>
+                  <p className={styles.discountPrice}>
+                    ${updatedPrice} ({savingsWhole}% Off)
+                  </p>
+                  <p className={styles.originalPriceCrossed}>${price}</p>
+                </>
+              ) : (
+                <p className={styles.price}>${price}</p>
+              )}
 
               <div className={styles.quantityContainer}>
                 <div className={styles.quantityHeader}>Quantity:</div>
@@ -102,6 +146,7 @@ export const ProductPage = ({
                     style={{
                       backgroundColor:
                         size === selectedSize ? 'lightgrey' : 'white',
+                      width: itemCategory == 'pants' ? 60 : 40,
                     }}
                   >
                     {size}

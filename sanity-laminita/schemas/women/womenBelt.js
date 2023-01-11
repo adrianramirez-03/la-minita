@@ -1,3 +1,5 @@
+import { generateRandomSlug } from '../slug-utils';
+
 export default {
   name: 'womenBelt',
   title: 'Women Belts',
@@ -22,7 +24,7 @@ export default {
       title: 'Slug',
       type: 'slug',
       options: {
-        source: 'name',
+        source: generateRandomSlug,
         maxLength: 90,
       },
     },
@@ -32,9 +34,10 @@ export default {
       type: 'number',
     },
     {
-      name: 'details',
-      title: 'Details',
-      type: 'string',
+      name: 'description',
+      title: 'Description Bullet Points',
+      type: 'array',
+      of: [{ type: 'string' }],
     },
     {
       name: 'quantity',
@@ -44,7 +47,7 @@ export default {
     {
       name: 'color',
       title: 'Color',
-      type: 'colorPicker',
+      type: 'string',
     },
     {
       name: 'dateCreated',

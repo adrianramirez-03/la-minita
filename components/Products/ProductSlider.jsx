@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styles from '../../styles/productpage.module.css';
 import { SliderComponent } from './SliderComponent';
 
-export const ProductSlider = ({ otherMenProducts }) => {
+export const ProductSlider = ({ otherMenProducts, width, height }) => {
   const [offset, setOffset] = useState(0);
   const numVisible = 4;
 
@@ -35,7 +35,13 @@ export const ProductSlider = ({ otherMenProducts }) => {
               )}
             </div>
             {visibleProducts.map((product, i) => (
-              <SliderComponent mainCategory="men" key={i} product={product} />
+              <SliderComponent
+                mainCategory="men"
+                key={i}
+                product={product}
+                width={width}
+                height={height}
+              />
             ))}
             <div className={styles.rightButtonContainer}>
               {hasMore && (
