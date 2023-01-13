@@ -2,45 +2,30 @@ import React, { useState } from 'react';
 import { urlFor } from '../../lib/client';
 import styles from '../../styles/productpage.module.css';
 import Link from 'next/link';
+import { useStateContext } from '../../context/StateContent';
 
-export const ProductPage = ({
-  product: {
-    name,
-    image,
-    price,
-    details,
-    sizes,
-    color,
-    itemCategory,
-    quantity,
-    savings,
-    savingsAmount,
-  },
-  width,
-  height,
-  mainCategory,
-}) => {
+export const ProductPage = ({ product, width, height, mainCategory }) => {
   const [selectedSize, setSelectedSize] = useState(null); //keep track of size selected
   const [amount, setAmount] = useState(1); //keep track of quantity a customer wants to buy
   const [index, setIndex] = useState(0); //keep track of image index
 
   //calculating discounts if they exits
-  let discount = price * savingsAmount;
+  let discount = product.price * product.savingsAmount;
   discount = discount.toFixed(2);
-  let updatedPrice = price - discount;
+  let updatedPrice = product.price - discount;
   updatedPrice = updatedPrice.toFixed(2);
-  let savingsWhole = savingsAmount * 100;
+  let savingsWhole = product.savingsAmount * 100;
 
   const handleSizeClicked = (size) => {
     setSelectedSize(size);
   };
 
   const handleQuantityAdd = () => {
-    setAmount((amount = amount + 1));
+    incQty(product.quantity);
   };
 
   const handleQuantitySub = () => {
-    setAmount(Math.max(amount - 1, 1));
+    decQty();
   };
 
   //height and width map to pass specific sizes for each category
@@ -63,6 +48,8 @@ export const ProductPage = ({
   heightMap['belts'] = 65;
   //
 
+  const { decQty, incQty, qty, onAdd } = useStateContext();
+
   return (
     <>
       <div className={styles.pageContainer}>
@@ -71,7 +58,7 @@ export const ProductPage = ({
             <a className={styles.customLink}>Men</a>
           </Link>{' '}
           /{' '}
-          <Link href={`/${mainCategory}/${itemCategory}`}>
+          <Link href={`/${mainCategory}/${product.itemCategory}`}>
             <a className={styles.customLink}>All Men's Boots</a>
           </Link>
         </div>
@@ -79,7 +66,7 @@ export const ProductPage = ({
         <div className={styles.container}>
           <div className={styles.imageSlider}>
             <div className={styles.allImagesContainer}>
-              {image?.map((item, i) => (
+              {product.image?.map((item, i) => (
                 <img
                   key={i}
                   src={urlFor(item)}
@@ -87,8 +74,8 @@ export const ProductPage = ({
                   onClick={() => setIndex(i)}
                   style={{
                     opacity: index === i ? '75%' : '100%',
-                    height: heightMap[itemCategory],
-                    width: widthMap[itemCategory],
+                    height: heightMap[product.itemCategory],
+                    width: widthMap[product.itemCategory],
                   }}
                 />
               ))}
@@ -98,7 +85,7 @@ export const ProductPage = ({
           <div className={styles.leftContainer}>
             <div className={styles.imageContainer}>
               <img
-                src={urlFor(image && image[index])}
+                src={urlFor(product.image && product.image[index])}
                 className={styles.productImage}
                 width={width}
                 height={height}
@@ -109,36 +96,39 @@ export const ProductPage = ({
           <div className={styles.rightContainer}>
             <div className={styles.informationContainer}>
               <p className={styles.store}>La Minita Wear</p>
-              <h3 className={styles.name}>{name}</h3>
+              <h3 className={styles.name}>{product.name}</h3>
 
-              {savings ? (
+              {product.savings ? (
                 <>
                   <p className={styles.discountPrice}>
                     ${updatedPrice} ({savingsWhole}% Off)
                   </p>
-                  <p className={styles.originalPriceCrossed}>${price}</p>
+                  <p className={styles.originalPriceCrossed}>
+                    ${product.price}
+                  </p>
                 </>
               ) : (
-                <p className={styles.price}>${price}</p>
+                <p className={styles.price}>${product.price}</p>
               )}
 
               <div className={styles.quantityContainer}>
                 <div className={styles.quantityHeader}>Quantity:</div>
                 <div className={styles.quantitySelector}>
                   <span onClick={handleQuantitySub}>-</span>
-                  <span>{amount}</span>
+                  <span>{qty}</span>
                   <span onClick={handleQuantityAdd}>+</span>
                 </div>
               </div>
+              <p className={styles.inStock}>In stock: {product.quantity}</p>
 
               <p className={styles.color}>
-                <span className={styles.span}>Color</span>: {color}
+                <span className={styles.span}>Color</span>: {product.color}
               </p>
               <p className={styles.size}>
                 <span className={styles.span}>Size</span>:
               </p>
               <div style={{ display: 'flex', marginTop: 10, flexWrap: 'wrap' }}>
-                {sizes.map((size) => (
+                {product.sizes.map((size) => (
                   <div
                     key={size}
                     onClick={() => handleSizeClicked(size)}
@@ -146,7 +136,7 @@ export const ProductPage = ({
                     style={{
                       backgroundColor:
                         size === selectedSize ? 'lightgrey' : 'white',
-                      width: itemCategory == 'pants' ? 60 : 40,
+                      width: product.itemCategory == 'pants' ? 60 : 40,
                     }}
                   >
                     {size}
@@ -154,7 +144,12 @@ export const ProductPage = ({
                 ))}
               </div>
               <div>
-                <button className={styles.button}>Add to Cart</button>
+                <button
+                  onClick={() => onAdd(product, qty, selectedSize)}
+                  className={styles.button}
+                >
+                  Add to Cart
+                </button>
               </div>
             </div>
           </div>

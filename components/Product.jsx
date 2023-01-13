@@ -3,8 +3,21 @@ import Link from 'next/link';
 import { urlFor } from '../lib/client';
 
 const Product = ({
-  category,
-  product: { image, name, slug, price, savings, savingsAmount },
+  mainCategory,
+  product: {
+    image,
+    name,
+    itemCategory,
+    sizes,
+    width,
+    length,
+    slug,
+    price,
+    savings,
+    savingsAmount,
+  },
+  productWidth,
+  productHeight,
 }) => {
   let discount = price * savingsAmount;
   discount = discount.toFixed(2);
@@ -12,15 +25,17 @@ const Product = ({
   updatedPrice = updatedPrice.toFixed(2);
 
   return (
-    <div>
-      <Link href={`/${category}/products/${slug.current}`}>
+    <div className="productContainer">
+      <Link href={`/${mainCategory}/${itemCategory}/${slug.current}`}>
         <div className="product-card">
-          <img
-            src={urlFor(image && image[0])}
-            width={300}
-            height={300}
-            className="product-image"
-          />
+          <div className="image-container">
+            <img
+              src={urlFor(image && image[0])}
+              width={productWidth}
+              height={productHeight}
+              className="product-image"
+            />
+          </div>
           <p className="product-name">{name}</p>
           <div>
             {savings ? (

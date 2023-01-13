@@ -294,3 +294,8 @@
   border-bottom: 1px solid black;
   margin-top: 10px;
 }
+
+.inStock {
+  margin-top: 5px;
+  font-size: 14px;
+}

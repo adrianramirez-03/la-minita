@@ -5,7 +5,11 @@ import React from 'react';
 import styles from '../styles/layout.module.css';
 import Cart from '../images/Cart.png';
 
+import { useStateContext } from '../context/StateContent';
+
 export default function Layout({ children, title }) {
+  const { showCart, setShowCart, totalQuantities } = useStateContext();
+
   return (
     <>
       <Head>
@@ -28,6 +32,7 @@ export default function Layout({ children, title }) {
                   placeholder="Search"
                 />
               </div>
+
               <div>
                 <a className={styles.cart} href="/cart">
                   <Image
@@ -37,6 +42,7 @@ export default function Layout({ children, title }) {
                     height={25}
                     className={styles.cart}
                   />
+                  <span>{totalQuantities}</span>
                 </a>
               </div>
             </div>

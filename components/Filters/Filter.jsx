@@ -1,7 +1,6 @@
 import React from 'react';
 import { useState, useCallback, useEffect } from 'react';
 import styles from '../../styles/filter.module.css';
-import Producttwo from '../Producttwo';
 import Product from '../Product';
 import { LeftFilter } from './LeftFilter';
 
@@ -99,7 +98,7 @@ export const Filter = ({ mainCategory, category, products }) => {
           {isShown && <LeftFilter onFilter={handleFilter} />}
           <div className={styles.smallContainer}>
             {products?.map((product) => (
-              <Producttwo
+              <Product
                 mainCategory={mainCategory}
                 key={product._id}
                 product={product}
@@ -118,7 +117,7 @@ export const Filter = ({ mainCategory, category, products }) => {
           <div className={styles.right}>
             <div className="products-container">
               {products.slice(0, currentPage * 9).map((product) => (
-                <Producttwo
+                <Product
                   mainCategory={mainCategory}
                   key={product._id}
                   product={product}
