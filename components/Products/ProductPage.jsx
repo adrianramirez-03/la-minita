@@ -1,32 +1,45 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { urlFor } from '../../lib/client';
 import styles from '../../styles/productpage.module.css';
 import Link from 'next/link';
-import { useStateContext } from '../../context/StateContent';
+import { useStateContext } from '../../context/StateContext';
+import toast from 'react-hot-toast';
 
 export const ProductPage = ({ product, width, height, mainCategory }) => {
-  const [selectedSize, setSelectedSize] = useState(null); //keep track of size selected
-  const [amount, setAmount] = useState(1); //keep track of quantity a customer wants to buy
+  const [selectedSize, setSelectedSize] = useState(''); //keep track of size selected
+  const [quantityOfSelection, setQuantityOfSelection] = useState(1);
   const [index, setIndex] = useState(0); //keep track of image index
 
   //calculating discounts if they exits
-  let discount = product.price * product.savingsAmount;
-  discount = discount.toFixed(2);
-  let updatedPrice = product.price - discount;
-  updatedPrice = updatedPrice.toFixed(2);
+  let discount = (product.price * product.savingsAmount).toFixed(2);
+  let updatedPrice = (product.price - discount).toFixed(2);
   let savingsWhole = product.savingsAmount * 100;
 
   const handleSizeClicked = (size) => {
     setSelectedSize(size);
+    const selectedSizeObject = product.sizes.find((s) => s.size === size);
+
+    if (selectedSizeObject) {
+      setQty(1);
+      setQuantityOfSelection(selectedSizeObject.quantity);
+    }
   };
 
   const handleQuantityAdd = () => {
-    incQty(product.quantity);
+    if (!selectedSize) {
+      toast.error('Please select a size');
+    } else {
+      incQty(quantityOfSelection);
+    }
   };
 
   const handleQuantitySub = () => {
     decQty();
   };
+
+  // useEffect(() => {
+  //   setSelectedSize(selectedSize);
+  // }, [selectedSize]);
 
   //height and width map to pass specific sizes for each category
   const widthMap = new Map();
@@ -48,8 +61,9 @@ export const ProductPage = ({ product, width, height, mainCategory }) => {
   heightMap['belts'] = 65;
   //
 
-  const { decQty, incQty, qty, onAdd } = useStateContext();
+  const { decQty, incQty, qty, setQty, onAdd } = useStateContext();
 
+  // console.log(product);
   return (
     <>
       <div className={styles.pageContainer}>
@@ -119,7 +133,8 @@ export const ProductPage = ({ product, width, height, mainCategory }) => {
                   <span onClick={handleQuantityAdd}>+</span>
                 </div>
               </div>
-              <p className={styles.inStock}>In stock: {product.quantity}</p>
+              {/* <p className={styles.inStock}>In stock: {product.quantity}</p> */}
+              <br></br>
 
               <p className={styles.color}>
                 <span className={styles.span}>Color</span>: {product.color}
@@ -128,24 +143,70 @@ export const ProductPage = ({ product, width, height, mainCategory }) => {
                 <span className={styles.span}>Size</span>:
               </p>
               <div style={{ display: 'flex', marginTop: 10, flexWrap: 'wrap' }}>
-                {product.sizes.map((size) => (
-                  <div
-                    key={size}
-                    onClick={() => handleSizeClicked(size)}
-                    className={styles.selection}
-                    style={{
-                      backgroundColor:
-                        size === selectedSize ? 'lightgrey' : 'white',
-                      width: product.itemCategory == 'pants' ? 60 : 40,
-                    }}
-                  >
-                    {size}
-                  </div>
-                ))}
+                {/* {product.sizess
+                  ? product.sizess.map((size) => (
+                      <div
+                        key={size}
+                        onClick={() => handleSizeClicked(size.size)}
+                        className={styles.selection}
+                        style={{
+                          backgroundColor:
+                            size.size === selectedSize ? 'lightgrey' : 'white',
+                          width: product.itemCategory == 'pants' ? 60 : 40,
+                        }}
+                      >
+                        {size.size}
+                      </div>
+                    ))
+                  : product.sizes.map((size) => (
+                      <div
+                        key={size}
+                        onClick={() => handleSizeClicked(size)}
+                        className={styles.selection}
+                        style={{
+                          backgroundColor:
+                            size === selectedSize ? 'lightgrey' : 'white',
+                          width: product.itemCategory == 'pants' ? 60 : 40,
+                        }}
+                      >
+                        asdwad
+                      </div>
+                    ))} */}
+
+                {/* <label>Select Size:</label> */}
+                <select
+                  onChange={(e) => handleSizeClicked(e.target.value)}
+                  value={selectedSize}
+                >
+                  <option value="" disabled>
+                    Select a size
+                  </option>
+                  {product.sizes.map((size, i) => (
+                    <option
+                      key={i}
+                      value={size.size}
+                      disabled={size.quantity === 0}
+                      style={{ color: size.quantity === 0 ? 'gray' : 'black' }}
+                    >
+                      {size.size} -{' '}
+                      {size.quantity === 0
+                        ? 'Out of stock'
+                        : `${size.quantity} in stock`}
+                    </option>
+                  ))}
+                </select>
               </div>
               <div>
                 <button
-                  onClick={() => onAdd(product, qty, selectedSize)}
+                  onClick={() =>
+                    onAdd(
+                      product,
+                      qty,
+                      selectedSize,
+                      updatedPrice,
+                      quantityOfSelection
+                    )
+                  }
                   className={styles.button}
                 >
                   Add to Cart

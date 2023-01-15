@@ -24,11 +24,35 @@ export default {
       title: 'Item Category',
       type: 'string',
     },
+    // {
+    //   name: 'sizes',
+    //   title: 'Sizes',
+    //   type: 'array',
+    //   of: [{ type: 'string' }],
+    // },
     {
       name: 'sizes',
-      title: 'Sizes',
       type: 'array',
-      of: [{ type: 'string' }],
+      of: [
+        {
+          type: 'object',
+          fields: [
+            {
+              name: 'size',
+              type: 'string',
+            },
+            {
+              name: 'quantity',
+              type: 'number',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'quantity',
+      title: 'Quantitiy',
+      type: 'number',
     },
     {
       name: 'slug',
@@ -60,11 +84,7 @@ export default {
       type: 'array',
       of: [{ type: 'string' }],
     },
-    {
-      name: 'quantity',
-      title: 'Quantitiy',
-      type: 'number',
-    },
+
     {
       name: 'color',
       title: 'Color',

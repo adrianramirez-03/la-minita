@@ -5,7 +5,7 @@ import React from 'react';
 import styles from '../styles/layout.module.css';
 import Cart from '../images/Cart.png';
 
-import { useStateContext } from '../context/StateContent';
+import { useStateContext } from '../context/StateContext';
 
 export default function Layout({ children, title }) {
   const { showCart, setShowCart, totalQuantities } = useStateContext();
