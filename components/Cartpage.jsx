@@ -26,20 +26,15 @@ const Cartpage = () => {
     }
   }, []);
 
+  console.log(cart);
+  let shippingPrice = 10.95;
   return (
     <>
       <div className={styles.cartWrapper}>
         <div className={styles.cartContainer}>
-          {/* <button
-            type="button"
-            className={styles.cartHeading}
-            onClick={() => {}}
-          >
-            Hello
-          </button> */}
           <div>
-            <p>Your Cart:</p>
-            <p>{totalQuantity} items</p>
+            <p className={styles.header}>Your Cart ({totalQuantity} items)</p>
+            <div className={styles.headerLine}></div>
           </div>
 
           {cart.length < 1 && (
@@ -61,23 +56,43 @@ const Cartpage = () => {
                     width={200}
                     height={200}
                   />
-                  <p>{item.name}</p>
+                  <div className={styles.productInfo}>
+                    <Link
+                      href={`/${item.mainCategory}/${item.itemCategory}/${item.slug.current}`}
+                    >
+                      <p className={styles.name}>{item.name}</p>
+                    </Link>
 
-                  {item.discountedPrice ? (
-                    <p className={styles.discountedPrice}>
-                      {item.discountedPrice}
-                    </p>
-                  ) : (
-                    <p>{item.price}</p>
-                  )}
-                  <p>Quantity: {item.quantity}</p>
-                  <p>Size: {item.selectedSize}</p>
+                    {item.discountedPrice ? (
+                      <p className={styles.discountedPrice}>
+                        {item.discountedPrice}
+                      </p>
+                    ) : (
+                      <p>{item.price}</p>
+                    )}
+                    <p>Quantity: {item.quantity}</p>
+                    <p>Size: {item.selectedSize}</p>
+                    <p>Color: {item.color}</p>
+                  </div>
                 </div>
               ))}
-
-            {cart.length >= 1 && <p>Total: {totalPrice}</p>}
           </div>
         </div>
+
+        {cart.length > 0 && (
+          <div className={styles.cartInformation}>
+            <div>
+              <h4>Order Summary:</h4>
+            </div>
+            <p>Subtotal: {totalPrice.toFixed(2)}</p>
+            <p>Shipping: ${shippingPrice}</p>
+            <div className={styles.line}></div>
+            <p className={styles.preTax}>
+              Pre-Tax Order Total: {totalPrice + shippingPrice}
+            </p>
+            <button className={styles.button}>Proceed to checkout</button>
+          </div>
+        )}
       </div>
     </>
   );

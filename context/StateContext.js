@@ -30,55 +30,70 @@ export const StateContext = ({ children }) => {
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
     localStorage.setItem('totalQuantity', JSON.stringify(totalQuantities));
     localStorage.setItem('totalPrice', JSON.stringify(totalPrice));
-  }, [cartItems, totalQuantities]);
+  }, [cartItems, totalQuantities, totalPrice]);
 
   // //original way
   const onAdd = (
     product,
     quantity,
     size,
-    updatedPrice,
-    quantityOfSelection
+    quantityOfSelection,
+    mainCategory
   ) => {
     if (!size) {
       return toast.error(`Please select a size`);
     }
 
+    // console.log(updatedPrice);
     const checkProductInCart = cartItems.find(
-      (item) => item.selectedSize === size
+      (item) =>
+        item.slug.current === product.slug.current && item.selectedSize === size
     );
 
-    setTotalPrice(
-      (prevTotalPrice) =>
-        prevTotalPrice + (updatedPrice || product.price) * quantity
-    );
-    console.log(totalPrice);
+    if (product.savings) {
+      let discount = (product.price * product.savingsAmount).toFixed(2);
+      let updatedPrice = (product.price - discount).toFixed(2);
+      setTotalPrice(
+        (prevTotalPrice) => prevTotalPrice + updatedPrice * quantity
+      );
+    } else {
+      setTotalPrice(
+        (prevTotalPrice) => prevTotalPrice + product.price * quantity
+      );
+    }
 
     if (checkProductInCart) {
-      if (checkProductInCart.quantity + quantity > quantityOfSelection) {
-        return toast.error(`You've added all the stock in this size`);
+      if (checkProductInCart.selectedSize == size) {
+        if (checkProductInCart.quantity + quantity > quantityOfSelection) {
+          return toast.error(`You've added all the stock in this size`);
+        }
       }
       setTotalQuantities(
         (prevTotalQuantities) => prevTotalQuantities + quantity
       );
 
-      setTotalPrice(
-        (prevTotalPrice) =>
-          prevTotalPrice + (updatedPrice || product.price) * quantity
-      );
+      setTotalPrice((prevTotalPrice) => {
+        if (updatedPrice) {
+          return prevTotalPrice + updatedPrice * quantity;
+        } else {
+          return prevTotalPrice + product.price * quantity;
+        }
+      });
 
       const updatedCartItems = cartItems.map((cartProduct) => {
-        if (cartProduct.selectedSize === size) {
+        if (cartProduct.slug.current === product.slug.current) {
           if (cartProduct.savings) {
             return {
               ...cartProduct,
               discountedPrice: updatedPrice,
               quantity: cartProduct.quantity + quantity,
+              mainCategory: mainCategory,
             };
           } else {
             return {
               ...cartProduct,
               quantity: cartProduct.quantity + quantity,
+              mainCategory: mainCategory,
             };
           }
         } else {
@@ -90,6 +105,7 @@ export const StateContext = ({ children }) => {
     } else {
       product.quantity = quantity;
       product.selectedSize = size;
+      product.mainCategory = mainCategory;
 
       if (product.savings) {
         product.discountedPrice = updatedPrice;

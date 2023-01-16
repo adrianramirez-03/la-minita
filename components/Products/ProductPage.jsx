@@ -204,7 +204,8 @@ export const ProductPage = ({ product, width, height, mainCategory }) => {
                       qty,
                       selectedSize,
                       updatedPrice,
-                      quantityOfSelection
+                      quantityOfSelection,
+                      mainCategory
                     )
                   }
                   className={styles.button}
