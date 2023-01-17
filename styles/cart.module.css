@@ -25,6 +25,7 @@
 
 .product {
   display: flex;
+  margin-top: 10px;
 }
 /* .productContainer {
   overflow: auto;
@@ -37,6 +38,7 @@
 
 .name {
   text-decoration: underline;
+  cursor: pointer;
 }
 
 .headerLine {

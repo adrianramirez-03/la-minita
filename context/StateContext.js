@@ -44,7 +44,6 @@ export const StateContext = ({ children }) => {
       return toast.error(`Please select a size`);
     }
 
-    // console.log(updatedPrice);
     const checkProductInCart = cartItems.find(
       (item) =>
         item.slug.current === product.slug.current && item.selectedSize === size
@@ -86,6 +85,7 @@ export const StateContext = ({ children }) => {
             return {
               ...cartProduct,
               discountedPrice: updatedPrice,
+              price: updatedPrice,
               quantity: cartProduct.quantity + quantity,
               mainCategory: mainCategory,
             };
@@ -109,6 +109,7 @@ export const StateContext = ({ children }) => {
 
       if (product.savings) {
         product.discountedPrice = updatedPrice;
+        product.price = updatedPrice;
       }
 
       setCartItems([...cartItems, { ...product }]);

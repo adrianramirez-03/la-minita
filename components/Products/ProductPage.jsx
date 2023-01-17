@@ -203,7 +203,6 @@ export const ProductPage = ({ product, width, height, mainCategory }) => {
                       product,
                       qty,
                       selectedSize,
-                      updatedPrice,
                       quantityOfSelection,
                       mainCategory
                     )
