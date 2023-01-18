@@ -78,35 +78,36 @@ export const ProductPage = ({ product, width, height, mainCategory }) => {
         </div>
 
         <div className={styles.container}>
-          <div className={styles.imageSlider}>
-            <div className={styles.allImagesContainer}>
-              {product.image?.map((item, i) => (
+          <div className={styles.imagesContainer}>
+            <div className={styles.imageSlider}>
+              <div className={styles.allImagesContainer}>
+                {product.image?.map((item, i) => (
+                  <img
+                    key={i}
+                    src={urlFor(item)}
+                    className={styles.smallImage}
+                    onClick={() => setIndex(i)}
+                    style={{
+                      opacity: index === i ? '75%' : '100%',
+                      height: heightMap[product.itemCategory],
+                      width: widthMap[product.itemCategory],
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+
+            <div className={styles.leftContainer}>
+              <div className={styles.imageContainer}>
                 <img
-                  key={i}
-                  src={urlFor(item)}
-                  className={styles.smallImage}
-                  onClick={() => setIndex(i)}
-                  style={{
-                    opacity: index === i ? '75%' : '100%',
-                    height: heightMap[product.itemCategory],
-                    width: widthMap[product.itemCategory],
-                  }}
+                  src={urlFor(product.image && product.image[index])}
+                  className={styles.productImage}
+                  width={width}
+                  height={height}
                 />
-              ))}
+              </div>
             </div>
           </div>
-
-          <div className={styles.leftContainer}>
-            <div className={styles.imageContainer}>
-              <img
-                src={urlFor(product.image && product.image[index])}
-                className={styles.productImage}
-                width={width}
-                height={height}
-              />
-            </div>
-          </div>
-
           <div className={styles.rightContainer}>
             <div className={styles.informationContainer}>
               <p className={styles.store}>La Minita Wear</p>
@@ -177,6 +178,7 @@ export const ProductPage = ({ product, width, height, mainCategory }) => {
                 <select
                   onChange={(e) => handleSizeClicked(e.target.value)}
                   value={selectedSize}
+                  className={styles.selector}
                 >
                   <option value="" disabled>
                     Select a size

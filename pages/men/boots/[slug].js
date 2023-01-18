@@ -20,6 +20,9 @@ const Post = ({ product, menProducts }) => {
           product={product}
           width={550}
           height={550}
+          // details={product.description}
+          // productSliderHeight={150}
+          // productSliderWidth={150}
         />
         <div className={styles.sliderDetailsContainer}>
           <div className={styles.productSliderComponent}>

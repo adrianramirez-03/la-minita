@@ -33,43 +33,44 @@ export default function Layout({ children, title }) {
                 />
               </div>
 
-              <div>
-                <a className={styles.cart} href="/cart">
-                  <Image
-                    src={Cart}
-                    alt="Cart"
-                    width={28}
-                    height={25}
-                    className={styles.cart}
-                  />
-                  <span>{totalQuantities}</span>
-                </a>
+              <div className={styles.cartContainer}>
+                <div className={styles.cart}>
+                  <a href="/cart">
+                    <Image
+                      src={Cart}
+                      alt="Cart"
+                      width={28}
+                      height={25}
+                      className={styles.cart}
+                    />
+                    <span>{totalQuantities}</span>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
-          <nav className={styles.nav}>
-            <div className={styles.navs2}>
-              <div className={styles.list}>
-                <ul className={styles.ul}>
-                  <li className={styles.li}>
-                    <a href="/men">MEN</a>
-                  </li>
-                  <li className={styles.li}>
-                    <a href="/women">WOMEN</a>
-                  </li>
-                  <li className={styles.li}>
-                    <a href="/kids">KIDS</a>
-                  </li>
-                  <li className={styles.li}>
-                    <a href="/specials">SALE</a>
-                  </li>
-                  <li className={styles.li}>
-                    <a href="#home">FILLER</a>
-                  </li>
-                </ul>
-              </div>
+
+          <div className={styles.navs2}>
+            <div className={styles.list}>
+              <ul className={styles.ul}>
+                <li className={styles.li}>
+                  <a href="/men">MEN</a>
+                </li>
+                <li className={styles.li}>
+                  <a href="/women">WOMEN</a>
+                </li>
+                <li className={styles.li}>
+                  <a href="/kids">KIDS</a>
+                </li>
+                <li className={styles.li}>
+                  <a href="/specials">SALE</a>
+                </li>
+                <li className={styles.li}>
+                  <a href="#home">FILLER</a>
+                </li>
+              </ul>
             </div>
-          </nav>
+          </div>
         </header>
         <main className={styles.contentContainer}>{children}</main>
         <footer className={styles.footer}>

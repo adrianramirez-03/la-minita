@@ -41,6 +41,7 @@ export const ProductSlider = ({ otherMenProducts, width, height }) => {
                 product={product}
                 width={width}
                 height={height}
+                onClick={() => setOffset(0)}
               />
             ))}
             <div className={styles.rightButtonContainer}>

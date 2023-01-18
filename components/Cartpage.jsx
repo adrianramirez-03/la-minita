@@ -105,11 +105,13 @@ const Cartpage = () => {
         {cart.length > 0 && (
           <div className={styles.cartInformation}>
             <div>
-              <h4>Order Summary:</h4>
+              <h4 className={styles.header}>Order Summary:</h4>
             </div>
-            <p>Subtotal: {totalPrice.toFixed(2)}</p>
 
-            <div className={styles.line}></div>
+            <div className={styles.headerLine}></div>
+
+            <p className={styles.subTotal}>Subtotal: {totalPrice.toFixed(2)}</p>
+
             <p className={styles.preTax}>
               Pre-Tax Order Total: {totalPrice.toFixed(2)}
             </p>
