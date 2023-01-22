@@ -144,37 +144,6 @@ export const ProductPage = ({ product, width, height, mainCategory }) => {
                 <span className={styles.span}>Size</span>:
               </p>
               <div style={{ display: 'flex', marginTop: 10, flexWrap: 'wrap' }}>
-                {/* {product.sizess
-                  ? product.sizess.map((size) => (
-                      <div
-                        key={size}
-                        onClick={() => handleSizeClicked(size.size)}
-                        className={styles.selection}
-                        style={{
-                          backgroundColor:
-                            size.size === selectedSize ? 'lightgrey' : 'white',
-                          width: product.itemCategory == 'pants' ? 60 : 40,
-                        }}
-                      >
-                        {size.size}
-                      </div>
-                    ))
-                  : product.sizes.map((size) => (
-                      <div
-                        key={size}
-                        onClick={() => handleSizeClicked(size)}
-                        className={styles.selection}
-                        style={{
-                          backgroundColor:
-                            size === selectedSize ? 'lightgrey' : 'white',
-                          width: product.itemCategory == 'pants' ? 60 : 40,
-                        }}
-                      >
-                        asdwad
-                      </div>
-                    ))} */}
-
-                {/* <label>Select Size:</label> */}
                 <select
                   onChange={(e) => handleSizeClicked(e.target.value)}
                   value={selectedSize}

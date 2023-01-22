@@ -19,6 +19,12 @@
   /* outline: 3px solid red; */
 }
 
+.selector {
+  width: 40%;
+  height: 25px;
+  font-size: 14px;
+}
+
 .imagesContainer {
   width: 60%;
 }
