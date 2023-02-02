@@ -10,6 +10,9 @@ export default async function handler(req, res) {
         mode: 'payment',
         payment_method_types: ['card'],
         billing_address_collection: 'auto',
+        // automatic_tax: {
+        //   enabled: true,
+        // },
         // shipping_address_collection: { allowed_countries: ['US', 'CA'] },
         shipping_options: [
           { shipping_rate: 'shr_1MR1lgHYa87ME7Yt8F6hMEU9' },
@@ -27,10 +30,15 @@ export default async function handler(req, res) {
           return {
             price_data: {
               currency: 'usd',
+              // tax_behavior: 'exclusive',
               product_data: {
                 name: item.name,
                 images: [newImage],
+                // tax_code: 'txcd_30011000',
                 description: `Size: ${item.selectedSize}`,
+                metadata: {
+                  sanitySlug: item.slug.current,
+                },
               },
               unit_amount: item.price * 100,
             },
@@ -41,15 +49,12 @@ export default async function handler(req, res) {
             quantity: item.quantity,
           };
         }),
-        success_url: `${req.headers.origin}/?success=true`,
-        cancel_url: `${req.headers.origin}/?canceled=true`,
+        success_url: `${req.headers.origin}/success?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${req.headers.origin}/cart?canceled=true`,
       };
 
       // Create Checkout Sessions from body params.
       const session = await stripe.checkout.sessions.create(params);
-
-      // console.log('session:', session);
-      // console.log(res);
 
       res.status(200).json(session);
     } catch (err) {

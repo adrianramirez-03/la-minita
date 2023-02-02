@@ -10,6 +10,8 @@ export const StateContext = ({ children }) => {
   const [totalQuantities, setTotalQuantities] = useState(0);
   const [qty, setQty] = useState(1);
 
+  let foundProduct;
+
   //assigning cart Items and total quantity to be whatever is stored locally, or be assigned an empty array and 0 respectively
   useEffect(() => {
     if (typeof window !== 'undefined' && window.localStorage) {
@@ -30,7 +32,7 @@ export const StateContext = ({ children }) => {
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
     localStorage.setItem('totalQuantity', JSON.stringify(totalQuantities));
     localStorage.setItem('totalPrice', JSON.stringify(totalPrice));
-  }, [cartItems, totalQuantities, totalPrice]);
+  }, [cartItems, totalQuantities, totalPrice, foundProduct]);
 
   // //original way
   const onAdd = (
@@ -49,15 +51,15 @@ export const StateContext = ({ children }) => {
         item.slug.current === product.slug.current && item.selectedSize === size
     );
 
+    let updatedPrice = product.price;
     if (product.savings) {
       let discount = (product.price * product.savingsAmount).toFixed(2);
-      let updatedPrice = (product.price - discount).toFixed(2);
+      updatedPrice = (product.price - discount).toFixed(2);
+    }
+
+    if (!checkProductInCart) {
       setTotalPrice(
         (prevTotalPrice) => prevTotalPrice + updatedPrice * quantity
-      );
-    } else {
-      setTotalPrice(
-        (prevTotalPrice) => prevTotalPrice + product.price * quantity
       );
     }
 
@@ -67,20 +69,19 @@ export const StateContext = ({ children }) => {
           return toast.error(`You've added all the stock in this size`);
         }
       }
+      setTotalPrice(
+        (prevTotalPrice) => prevTotalPrice + updatedPrice * quantity
+      );
+
       setTotalQuantities(
         (prevTotalQuantities) => prevTotalQuantities + quantity
       );
 
-      setTotalPrice((prevTotalPrice) => {
-        if (updatedPrice) {
-          return prevTotalPrice + updatedPrice * quantity;
-        } else {
-          return prevTotalPrice + product.price * quantity;
-        }
-      });
-
       const updatedCartItems = cartItems.map((cartProduct) => {
-        if (cartProduct.slug.current === product.slug.current) {
+        if (
+          cartProduct.slug.current === product.slug.current &&
+          cartProduct.selectedSize === size
+        ) {
           if (cartProduct.savings) {
             return {
               ...cartProduct,
@@ -107,17 +108,40 @@ export const StateContext = ({ children }) => {
       product.selectedSize = size;
       product.mainCategory = mainCategory;
 
+      const productClone = { ...product };
       if (product.savings) {
-        product.discountedPrice = updatedPrice;
-        product.price = updatedPrice;
+        productClone.discountedPrice = updatedPrice;
+        productClone.price = updatedPrice;
       }
 
-      setCartItems([...cartItems, { ...product }]);
+      setCartItems([...cartItems, { ...productClone }]);
       setTotalQuantities(
         (prevTotalQuantities) => prevTotalQuantities + quantity
       );
     }
     toast.success(`${qty} ${product.name} added to the cart.`);
+  };
+
+  const onRemove = (product) => {
+    foundProduct = cartItems.find(
+      (item) =>
+        item.slug.current === product.slug.current &&
+        item.selectedSize === product.selectedSize
+    );
+
+    if (foundProduct.quantity > 1) {
+      foundProduct.quantity -= 1;
+    } else {
+      setCartItems(
+        cartItems.filter(
+          (item) =>
+            item.slug.current !== product.slug.current ||
+            item.selectedSize !== product.selectedSize
+        )
+      );
+    }
+    setTotalPrice((prevTotalPrice) => prevTotalPrice - foundProduct.price);
+    setTotalQuantities((prevTotalQuantities) => prevTotalQuantities - 1);
   };
 
   //USING COOKIES TO SAVE CART
@@ -176,6 +200,48 @@ export const StateContext = ({ children }) => {
     });
   };
 
+  const toggleCartItemQuanitity = (product, value) => {
+    foundProduct = cartItems.find(
+      (item) =>
+        item.slug.current === product.slug.current &&
+        item.selectedSize === product.selectedSize
+    );
+
+    const newCartItems = cartItems.filter(
+      (item) =>
+        item.slug.current !== product.slug.current ||
+        item.selectedSize !== product.selectedSize
+    );
+
+    console.log(newCartItems);
+
+    const selectedSizeObject = product.sizes.find(
+      (s) => s.size === product.selectedSize
+    );
+    const quantityOfSelection = selectedSizeObject.quantity;
+
+    if (value === '') {
+      if (foundProduct.quantity + 1 > quantityOfSelection) {
+        return toast.error(`Cannot add more than available stock`);
+      }
+      setCartItems([
+        ...newCartItems,
+        { ...foundProduct, quantity: foundProduct.quantity + 1 },
+      ]);
+      setTotalPrice((prevTotalPrice) => prevTotalPrice + foundProduct.price);
+      setTotalQuantities((prevTotalQuantities) => prevTotalQuantities + 1);
+    } else if (value === 'dec') {
+      if (foundProduct.quantity > 1) {
+        setCartItems([
+          ...newCartItems,
+          { ...foundProduct, quantity: foundProduct.quantity - 1 },
+        ]);
+        setTotalPrice((prevTotalPrice) => prevTotalPrice - foundProduct.price);
+        setTotalQuantities((prevTotalQuantities) => prevTotalQuantities - 1);
+      }
+    }
+  };
+
   return (
     <Context.Provider
       value={{
@@ -189,6 +255,8 @@ export const StateContext = ({ children }) => {
         incQty,
         decQty,
         onAdd,
+        onRemove,
+        toggleCartItemQuanitity,
       }}
     >
       {children}

@@ -1,0 +1,35 @@
+.button {
+  margin: 25px 0;
+  padding: 8px 16px;
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 60%;
+}
+
+.description {
+}
+
+.successWrapper {
+  background-color: white;
+  min-height: 60vh;
+}
+
+.container {
+  width: 75%;
+  margin: auto;
+  margin-top: 50px;
+  background-color: #dcdcdc;
+  padding: 50px;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.toast {
+}

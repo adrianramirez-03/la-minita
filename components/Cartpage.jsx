@@ -8,8 +8,10 @@ import getStripe from '../lib/getStripe';
 
 const Cartpage = () => {
   const [cart, setCart] = useState([]);
-  const [totalQuantity, setTotalQuantity] = useState([]);
+  const [totalQuantity, setTotalQuantity] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
+
+  const { onRemove, toggleCartItemQuanitity } = useStateContext();
 
   useEffect(() => {
     if (typeof window !== 'undefined' && window.localStorage) {
@@ -29,23 +31,39 @@ const Cartpage = () => {
   const handleCheckout = async () => {
     const stripe = await getStripe();
 
-    const response = await fetch('/api/stripe', {
+    fetch('/api/stripe', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(cart),
-    });
+    })
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (session) {
+        // toast.loading('Redirecting...');
+        stripe.redirectToCheckout({ sessionId: session.id });
+      });
+    localStorage.setItem('checkoutSuccessful', true);
 
-    if (response.statusCode === 500) return;
+    //PREVIOUS METHOD
+    // const response = await fetch('/api/stripe', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify(cart),
+    // });
 
-    const data = await response.json();
+    // if (response.statusCode === 500) return;
 
-    toast.loading('Redirecting...');
-    stripe.redirectToCheckout({ sessionId: data.id });
+    // const data = await response.json();
+
+    // toast.loading('Redirecting...');
+    // stripe.redirectToCheckout({ sessionId: data.id });
   };
 
-  // console.log(cart);
   return (
     <>
       <div className={styles.cartWrapper}>
@@ -93,7 +111,21 @@ const Cartpage = () => {
                     ) : (
                       <p>{item.price}</p>
                     )}
-                    <p>Quantity: {item.quantity}</p>
+                    <div className={styles.quantityContainer}>
+                      <div className={styles.quantitySelector}>
+                        <span
+                          onClick={() => toggleCartItemQuanitity(item, 'dec')}
+                        >
+                          -
+                        </span>
+                        <span>{item.quantity}</span>
+                        <span
+                          onClick={() => toggleCartItemQuanitity(item, 'inc')}
+                        >
+                          +
+                        </span>
+                      </div>
+                    </div>
                     <p>Size: {item.selectedSize}</p>
                     <p>Color: {item.color}</p>
                   </div>

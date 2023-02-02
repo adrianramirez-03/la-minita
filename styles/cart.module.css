@@ -8,7 +8,7 @@
   /* outline: 1px solid red; */
 }
 .cartInformation {
-  outline: 1px solid blue;
+  /* outline: 1px solid blue; */
   width: 40%;
   margin-left: 5%;
 }
@@ -26,6 +26,9 @@
 .product {
   display: flex;
   margin-top: 10px;
+}
+.product:not(:first-child) {
+  margin-top: 20px;
 }
 /* .productContainer {
   overflow: auto;
@@ -74,6 +77,47 @@
   font-size: 16px;
   width: 100%;
 }
+.removeButton {
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 30px;
+  height: 20px;
+}
+
+/* Quantity toggle styles */
+.quantityContainer {
+  display: flex; /* This will display the header and selector as a row */
+  align-items: center; /* This will center the elements vertically */
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.quantitySelector {
+  display: flex; /* This will display the spans as a row */
+  align-items: center; /* This will center the spans vertically */
+  outline: 1px solid black;
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.quantitySelector span {
+  width: 20px; /* Set the width of the spans */
+  text-align: center; /* Center the text horizontally */
+  cursor: pointer; /* Change the cursor to a pointer when hovering over the span */
+}
+
+.quantitySelector span:not(:last-child) {
+  border-right: 1px solid #ccc; /* Add a border between the minus and plus spans */
+}
+/* Quantity toggle styles */
 
 @media (max-width: 750px) {
   .cartWrapper {
@@ -86,6 +130,6 @@
   }
   .cartContainer {
     width: 100%;
-    outline: 1px solid red;
+    /* outline: 1px solid red; */
   }
 }
