@@ -5,28 +5,61 @@ import styles from '../styles/cart.module.css';
 import { useStateContext } from '../context/StateContext';
 import { urlFor } from '../lib/client';
 import getStripe from '../lib/getStripe';
+import Cookies from 'js-cookie';
 
 const Cartpage = () => {
-  const [cart, setCart] = useState([]);
-  const [totalQuantity, setTotalQuantity] = useState(0);
-  const [totalPrice, setTotalPrice] = useState(0);
+  // const [cart, setCart] = useState([]);
+  // const [totalQuantity, setTotalQuantity] = useState(0);
+  // const [totalPrice, setTotalPrice] = useState(0);
 
-  const { onRemove, toggleCartItemQuanitity } = useStateContext();
+  const {
+    cartItems,
+    totalPrice,
+    totalQuantities,
+    onRemove,
+    toggleCartItemQuanitity,
+  } = useStateContext();
 
-  useEffect(() => {
-    if (typeof window !== 'undefined' && window.localStorage) {
-      const storedCartItems =
-        JSON.parse(localStorage.getItem('cartItems')) || [];
-      setCart(storedCartItems);
-      const storedTotalQuantity =
-        JSON.parse(localStorage.getItem('totalQuantity')) || 0;
-      setTotalQuantity(storedTotalQuantity);
-      const storedTotalPrice = JSON.parse(
-        localStorage.getItem('totalPrice') || 0
-      );
-      setTotalPrice(storedTotalPrice);
-    }
-  }, []);
+  //useEffects to fetch data from localStorage and Cookies
+  // useEffect(() => {
+  //   if (typeof window !== 'undefined' && window.localStorage) {
+  //     const storedCartItems =
+  //       JSON.parse(localStorage.getItem('cartItems')) || [];
+  //     setCart(storedCartItems);
+  //     const storedTotalQuantity =
+  //       JSON.parse(localStorage.getItem('totalQuantity')) || 0;
+  //     setTotalQuantity(storedTotalQuantity);
+  //     const storedTotalPrice = JSON.parse(
+  //       localStorage.getItem('totalPrice') || 0
+  //     );
+  //     setTotalPrice(storedTotalPrice);
+  //   }
+  // }, []);
+
+  // useEffect(() => {
+  //   const storedCartItems = Cookies.get('cartItems')
+  //     ? JSON.parse(Cookies.get('cartItems'))
+  //     : [];
+
+  //   setCart(storedCartItems);
+  //   const storedTotalQuantity = Cookies.get('totalQuantity') || 0;
+  //   setTotalQuantity(storedTotalQuantity);
+  //   const storedTotalPrice = Cookies.get('totalPrice') || 0;
+  //   setTotalPrice(storedTotalPrice);
+  // }, []);
+
+  // useEffect(() => {
+  //   let cartItemsFromCookie = Cookies.get('cartItems')
+  //     ? JSON.parse(Cookies.get('cartItems'))
+  //     : [];
+  //   setCart(cartItemsFromCookie);
+  //   const totalPriceFromCookies = Cookies.get('totalPrice') || 0;
+  //   setTotalPrice(Number(totalPriceFromCookies));
+  //   const totalQuantityFromCookies = Cookies.get('totalQuantity') || 0;
+  //   setTotalQuantity(Number(totalQuantityFromCookies));
+  // }, []);
+
+  // console.log(cart);
 
   const handleCheckout = async () => {
     const stripe = await getStripe();
@@ -36,7 +69,7 @@ const Cartpage = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(cart),
+      body: JSON.stringify(cartItems),
     })
       .then(function (response) {
         return response.json();
@@ -69,11 +102,11 @@ const Cartpage = () => {
       <div className={styles.cartWrapper}>
         <div className={styles.cartContainer}>
           <div>
-            <p className={styles.header}>Your Cart ({totalQuantity} items)</p>
+            <p className={styles.header}>Your Cart ({totalQuantities} items)</p>
             <div className={styles.headerLine}></div>
           </div>
 
-          {cart.length < 1 && (
+          {cartItems.length < 1 && (
             <div>
               <h3>Your cart is empty</h3>
               <Link href="/">
@@ -83,8 +116,8 @@ const Cartpage = () => {
           )}
 
           <div className={styles.productContainer}>
-            {cart.length >= 1 &&
-              cart.map((item, index) => (
+            {cartItems.length >= 1 &&
+              cartItems.map((item, index) => (
                 <div className={styles.product} key={index}>
                   <Link
                     href={`/${item.mainCategory}/${item.itemCategory}/${item.slug.current}`}
@@ -105,11 +138,17 @@ const Cartpage = () => {
                     </Link>
 
                     {item.discountedPrice ? (
-                      <p className={styles.discountedPrice}>
-                        {item.discountedPrice}
-                      </p>
+                      <div className={styles.discountedPriceContainer}>
+                        <p className={styles.salePriceText}>Sale Price: </p>
+                        <p className={styles.discountedPrice}>
+                          {item.discountedPrice}
+                        </p>
+                      </div>
                     ) : (
-                      <p>{item.price}</p>
+                      <div className={styles.discountedPriceContainer}>
+                        <p className={styles.salePriceText}>Original Price: </p>
+                        <p>{item.price}</p>
+                      </div>
                     )}
                     <div className={styles.quantityContainer}>
                       <div className={styles.quantitySelector}>
@@ -126,6 +165,12 @@ const Cartpage = () => {
                         </span>
                       </div>
                     </div>
+                    <div
+                      className={styles.remove}
+                      onClick={() => onRemove(item)}
+                    >
+                      Remove
+                    </div>
                     <p>Size: {item.selectedSize}</p>
                     <p>Color: {item.color}</p>
                   </div>
@@ -134,7 +179,7 @@ const Cartpage = () => {
           </div>
         </div>
 
-        {cart.length > 0 && (
+        {cartItems.length > 0 && (
           <div className={styles.cartInformation}>
             <div>
               <h4 className={styles.header}>Order Summary:</h4>
@@ -142,11 +187,9 @@ const Cartpage = () => {
 
             <div className={styles.headerLine}></div>
 
-            <p className={styles.subTotal}>Subtotal: {totalPrice.toFixed(2)}</p>
+            <p className={styles.subTotal}>Subtotal: {totalPrice}</p>
 
-            <p className={styles.preTax}>
-              Pre-Tax Order Total: {totalPrice.toFixed(2)}
-            </p>
+            <p className={styles.preTax}>Pre-Tax Order Total: {totalPrice}</p>
             <button onClick={handleCheckout} className={styles.button}>
               Pay with Stripe
             </button>

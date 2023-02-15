@@ -1,16 +1,18 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
+import Cookies from 'js-cookie';
 
 const Context = createContext();
 
 export const StateContext = ({ children }) => {
   const [showCart, setshowCart] = useState(false);
-  const [cartItems, setCartItems] = useState();
+  const [cartItems, setCartItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalQuantities, setTotalQuantities] = useState(0);
   const [qty, setQty] = useState(1);
 
   let foundProduct;
+  let cartItemsFromCookie;
 
   //assigning cart Items and total quantity to be whatever is stored locally, or be assigned an empty array and 0 respectively
   useEffect(() => {
@@ -32,7 +34,28 @@ export const StateContext = ({ children }) => {
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
     localStorage.setItem('totalQuantity', JSON.stringify(totalQuantities));
     localStorage.setItem('totalPrice', JSON.stringify(totalPrice));
-  }, [cartItems, totalQuantities, totalPrice, foundProduct]);
+  }, [cartItems, totalQuantities, totalPrice]);
+
+  //using cookies to save cart data
+  // useEffect(() => {
+  //   try {
+  //     cartItemsFromCookie = JSON.parse(Cookies.get('cartItems'));
+  //     setCartItems(cartItemsFromCookie);
+  //   } catch (error) {
+  //     setCartItems([]);
+  //   }
+
+  //   const totalPriceFromCookies = Cookies.get('totalPrice') || 0;
+  //   setTotalPrice(Number(totalPriceFromCookies));
+  //   const totalQuantityFromCookies = Cookies.get('totalQuantity') || 0;
+  //   setTotalQuantities(Number(totalQuantityFromCookies));
+  // }, []);
+
+  // useEffect(() => {
+  //   Cookies.set('cartItems', JSON.stringify(cartItems));
+  //   Cookies.set('totalQuantity', totalQuantities);
+  //   Cookies.set('totalPrice', totalPrice);
+  // }, [cartItems, totalQuantities, totalPrice]);
 
   // //original way
   const onAdd = (
@@ -42,6 +65,7 @@ export const StateContext = ({ children }) => {
     quantityOfSelection,
     mainCategory
   ) => {
+    console.log(cartItems);
     if (!size) {
       return toast.error(`Please select a size`);
     }
@@ -129,19 +153,34 @@ export const StateContext = ({ children }) => {
         item.selectedSize === product.selectedSize
     );
 
-    if (foundProduct.quantity > 1) {
-      foundProduct.quantity -= 1;
-    } else {
-      setCartItems(
-        cartItems.filter(
-          (item) =>
-            item.slug.current !== product.slug.current ||
-            item.selectedSize !== product.selectedSize
-        )
-      );
-    }
-    setTotalPrice((prevTotalPrice) => prevTotalPrice - foundProduct.price);
-    setTotalQuantities((prevTotalQuantities) => prevTotalQuantities - 1);
+    console.log(foundProduct);
+
+    // if (foundProduct.quantity > 1) {
+    //   foundProduct.quantity -= 1;
+    // } else {
+    //   setCartItems(
+    //     cartItems.filter(
+    //       (item) =>
+    //         item.slug.current !== product.slug.current ||
+    //         item.selectedSize !== product.selectedSize
+    //     )
+    //   );
+    // }
+
+    setCartItems(
+      cartItems.filter(
+        (item) =>
+          item.slug.current !== product.slug.current ||
+          item.selectedSize !== product.selectedSize
+      )
+    );
+    setTotalPrice(
+      (prevTotalPrice) =>
+        prevTotalPrice - foundProduct.price * foundProduct.quantity
+    );
+    setTotalQuantities(
+      (prevTotalQuantities) => prevTotalQuantities - foundProduct.quantity
+    );
   };
 
   //USING COOKIES TO SAVE CART
@@ -213,33 +252,44 @@ export const StateContext = ({ children }) => {
         item.selectedSize !== product.selectedSize
     );
 
-    console.log(newCartItems);
-
     const selectedSizeObject = product.sizes.find(
       (s) => s.size === product.selectedSize
     );
+
     const quantityOfSelection = selectedSizeObject.quantity;
 
-    if (value === '') {
+    if (value === 'inc') {
       if (foundProduct.quantity + 1 > quantityOfSelection) {
         return toast.error(`Cannot add more than available stock`);
       }
-      setCartItems([
-        ...newCartItems,
-        { ...foundProduct, quantity: foundProduct.quantity + 1 },
-      ]);
-      setTotalPrice((prevTotalPrice) => prevTotalPrice + foundProduct.price);
+      foundProduct.quantity += 1;
+      setTotalPrice(
+        (prevTotalPrice) => prevTotalPrice + Number(foundProduct.price)
+      );
       setTotalQuantities((prevTotalQuantities) => prevTotalQuantities + 1);
     } else if (value === 'dec') {
       if (foundProduct.quantity > 1) {
-        setCartItems([
-          ...newCartItems,
-          { ...foundProduct, quantity: foundProduct.quantity - 1 },
-        ]);
-        setTotalPrice((prevTotalPrice) => prevTotalPrice - foundProduct.price);
+        foundProduct.quantity -= 1;
+        setTotalPrice(
+          (prevTotalPrice) => prevTotalPrice - Number(foundProduct.price)
+        );
         setTotalQuantities((prevTotalQuantities) => prevTotalQuantities - 1);
       }
     }
+
+    const updatedCartItems = cartItems.map((item) =>
+      item.slug.current === foundProduct.slug.current &&
+      item.selectedSize === foundProduct.selectedSize
+        ? foundProduct
+        : item
+    );
+
+    // sort the new array based on the original order of the items
+    const sortedCartItems = updatedCartItems.sort(
+      (a, b) => cartItems.indexOf(a) - cartItems.indexOf(b)
+    );
+
+    setCartItems(sortedCartItems);
   };
 
   return (
