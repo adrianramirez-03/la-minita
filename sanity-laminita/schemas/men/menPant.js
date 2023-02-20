@@ -17,7 +17,8 @@ export default {
     {
       name: 'name',
       title: 'Name',
-      type: 'string',
+      type: 'text',
+      index: 'search',
     },
     {
       name: 'itemCategory',

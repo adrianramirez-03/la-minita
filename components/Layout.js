@@ -1,14 +1,30 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
+import React, { useState } from 'react';
 import styles from '../styles/layout.module.css';
 import Cart from '../images/Cart.png';
+import { client } from '../lib/client';
 
 import { useStateContext } from '../context/StateContext';
+import { useRouter } from 'next/router';
 
 export default function Layout({ children, title }) {
   const { showCart, setShowCart, totalQuantities } = useStateContext();
+  const [query, setQuery] = useState('');
+
+  const router = useRouter();
+
+  const handleChange = (e) => {
+    e.preventDefault();
+    setQuery(e.target.value);
+  };
+
+  function handleFilterSearch(e) {
+    e.preventDefault();
+    router.push(`/search?query=${query}`);
+    console.log(query);
+  }
 
   return (
     <>
@@ -26,11 +42,14 @@ export default function Layout({ children, title }) {
             </div>
             <div className={styles.float2}>
               <div className={styles.searchContainer}>
-                <input
-                  className={styles.search}
-                  type="text"
-                  placeholder="Search"
-                />
+                <form onSubmit={handleFilterSearch}>
+                  <input
+                    className={styles.search}
+                    id="query"
+                    placeholder="Search"
+                    onChange={handleChange}
+                  />
+                </form>
               </div>
 
               <div className={styles.cartContainer}>

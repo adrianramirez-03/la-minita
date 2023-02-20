@@ -154,10 +154,16 @@ const Cartpage = () => {
                       <div className={styles.quantitySelector}>
                         <span
                           onClick={() => toggleCartItemQuanitity(item, 'dec')}
+                          disabled={item.quantity === 1}
+                          style={{
+                            color: item.quantity === 1 ? 'gray' : 'black',
+                            pointerEvents:
+                              item.quantity === 1 ? 'none' : 'auto',
+                          }}
                         >
                           -
                         </span>
-                        <span>{item.quantity}</span>
+                        <p>{item.quantity}</p>
                         <span
                           onClick={() => toggleCartItemQuanitity(item, 'inc')}
                         >
@@ -187,9 +193,11 @@ const Cartpage = () => {
 
             <div className={styles.headerLine}></div>
 
-            <p className={styles.subTotal}>Subtotal: {totalPrice}</p>
+            <p className={styles.subTotal}>Subtotal: {totalPrice.toFixed(2)}</p>
 
-            <p className={styles.preTax}>Pre-Tax Order Total: {totalPrice}</p>
+            <p className={styles.preTax}>
+              Pre-Tax Order Total: {totalPrice.toFixed(2)}
+            </p>
             <button onClick={handleCheckout} className={styles.button}>
               Pay with Stripe
             </button>

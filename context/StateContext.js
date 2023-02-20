@@ -65,7 +65,7 @@ export const StateContext = ({ children }) => {
     quantityOfSelection,
     mainCategory
   ) => {
-    console.log(cartItems);
+    // console.log(cartItems);
     if (!size) {
       return toast.error(`Please select a size`);
     }
@@ -152,8 +152,6 @@ export const StateContext = ({ children }) => {
         item.slug.current === product.slug.current &&
         item.selectedSize === product.selectedSize
     );
-
-    console.log(foundProduct);
 
     // if (foundProduct.quantity > 1) {
     //   foundProduct.quantity -= 1;
@@ -246,11 +244,11 @@ export const StateContext = ({ children }) => {
         item.selectedSize === product.selectedSize
     );
 
-    const newCartItems = cartItems.filter(
-      (item) =>
-        item.slug.current !== product.slug.current ||
-        item.selectedSize !== product.selectedSize
-    );
+    // const newCartItems = cartItems.filter(
+    //   (item) =>
+    //     item.slug.current !== product.slug.current ||
+    //     item.selectedSize !== product.selectedSize
+    // );
 
     const selectedSizeObject = product.sizes.find(
       (s) => s.size === product.selectedSize

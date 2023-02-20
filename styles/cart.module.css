@@ -118,6 +118,7 @@
   display: flex; /* This will display the spans as a row */
   align-items: center; /* This will center the spans vertically */
   outline: 1px solid black;
+  height: 25px;
 
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -127,12 +128,23 @@
 }
 
 .quantitySelector span {
-  width: 20px; /* Set the width of the spans */
+  width: 30px; /* Set the width of the spans */
   text-align: center; /* Center the text horizontally */
   cursor: pointer; /* Change the cursor to a pointer when hovering over the span */
+  font-size: 18px;
+}
+
+.quantitySelector p {
+  width: 30px; /* Set the width of the spans */
+  text-align: center; /* Center the text horizontally */
+  cursor: pointer; /* Change the cursor to a pointer when hovering over the span */
+  font-size: 15px;
 }
 
 .quantitySelector span:not(:last-child) {
+  border-right: 1px solid #ccc; /* Add a border between the minus and plus spans */
+}
+.quantitySelector p:not(:last-child) {
   border-right: 1px solid #ccc; /* Add a border between the minus and plus spans */
 }
 /* Quantity toggle styles */
