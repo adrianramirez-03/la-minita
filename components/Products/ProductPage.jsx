@@ -4,6 +4,7 @@ import styles from '../../styles/productpage.module.css';
 import Link from 'next/link';
 import { useStateContext } from '../../context/StateContext';
 import toast from 'react-hot-toast';
+import Image from 'next/image';
 
 export const ProductPage = ({ product, width, height, mainCategory }) => {
   const [selectedSize, setSelectedSize] = useState(''); //keep track of size selected

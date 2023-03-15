@@ -43,6 +43,7 @@ const SearchComponent = ({ mainCategory, header }) => {
 
     return targetReached;
   };
+
   const isBreakpoint = useMediaQuery(750);
 
   const widthMap = new Map();
