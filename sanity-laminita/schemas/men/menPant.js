@@ -1,3 +1,5 @@
+import { generateRandomSlug } from '../slug-utils';
+
 export default {
   name: 'menPant',
   title: 'Men Pants',
@@ -15,31 +17,50 @@ export default {
     {
       name: 'name',
       title: 'Name',
-      type: 'string',
+      type: 'text',
+      index: 'search',
     },
     {
       name: 'itemCategory',
       title: 'Item Category',
       type: 'string',
     },
+    // {
+    //   name: 'sizes',
+    //   title: 'Sizes',
+    //   type: 'array',
+    //   of: [{ type: 'string' }],
+    // },
     {
-      name: 'width',
-      title: 'Size Width',
+      name: 'sizes',
       type: 'array',
-      of: [{ type: 'number' }],
+      of: [
+        {
+          type: 'object',
+          fields: [
+            {
+              name: 'size',
+              type: 'string',
+            },
+            {
+              name: 'quantity',
+              type: 'number',
+            },
+          ],
+        },
+      ],
     },
     {
-      name: 'length',
-      title: 'Size Length',
-      type: 'array',
-      of: [{ type: 'number' }],
+      name: 'quantity',
+      title: 'Quantitiy',
+      type: 'number',
     },
     {
       name: 'slug',
       title: 'Slug',
       type: 'slug',
       options: {
-        source: 'name',
+        source: generateRandomSlug,
         maxLength: 90,
       },
     },
@@ -59,19 +80,16 @@ export default {
       type: 'number',
     },
     {
-      name: 'details',
-      title: 'Details',
-      type: 'string',
+      name: 'description',
+      title: 'Description Bullet Points',
+      type: 'array',
+      of: [{ type: 'string' }],
     },
-    {
-      name: 'quantity',
-      title: 'Quantitiy',
-      type: 'number',
-    },
+
     {
       name: 'color',
       title: 'Color',
-      type: 'colorPicker',
+      type: 'string',
     },
     {
       title: 'Post Date',

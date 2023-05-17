@@ -1,3 +1,5 @@
+import { generateRandomSlug } from '../slug-utils';
+
 export default {
   name: 'menBoot',
   title: 'Men Boots',
@@ -24,16 +26,29 @@ export default {
     },
     {
       name: 'sizes',
-      title: 'Sizes',
       type: 'array',
-      of: [{ type: 'number' }],
+      of: [
+        {
+          type: 'object',
+          fields: [
+            {
+              name: 'size',
+              type: 'string',
+            },
+            {
+              name: 'quantity',
+              type: 'number',
+            },
+          ],
+        },
+      ],
     },
     {
       name: 'slug',
       title: 'Slug',
       type: 'slug',
       options: {
-        source: 'name',
+        source: generateRandomSlug,
         maxLength: 90,
       },
     },
@@ -53,19 +68,20 @@ export default {
       type: 'number',
     },
     {
-      name: 'details',
-      title: 'Details',
-      type: 'string',
+      name: 'description',
+      title: 'Description Bullet Points',
+      type: 'array',
+      of: [{ type: 'string' }],
     },
-    {
-      name: 'quantity',
-      title: 'Quantitiy',
-      type: 'number',
-    },
+    // {
+    //   name: 'quantity',
+    //   title: 'Quantitiy',
+    //   type: 'number',
+    // },
     {
       name: 'color',
       title: 'Color',
-      type: 'colorPicker',
+      type: 'string',
     },
     {
       title: 'Post Date',

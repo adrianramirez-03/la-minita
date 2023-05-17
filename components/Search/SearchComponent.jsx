@@ -2,14 +2,21 @@ import React from 'react';
 import { useState, useCallback, useEffect } from 'react';
 import styles from '../../styles/filter.module.css';
 import Product from '../Product';
-import { LeftFilter } from './LeftFilter';
+import { LeftFilter } from '../Filters/LeftFilter';
+import { useRouter } from 'next/router';
+import axios from 'axios';
+import { client } from '../../lib/client';
 
-export const Filter = ({ mainCategory, category, products }) => {
+const SearchComponent = ({ mainCategory, header }) => {
   const [isShown, setIsShown] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalDisplayed, setTotalDisplayed] = useState(
-    products.length < 9 ? products.length : 9
-  );
+  const [products, setProducts] = useState([]);
+  // const [state, setState] = useState({
+  //   categories: [],
+  //   products: [],
+  //   error: '',
+  // });
+  const [totalDisplayed, setTotalDisplayed] = useState();
 
   const useMediaQuery = (width) => {
     const [targetReached, setTargetReached] = useState(false);
@@ -36,6 +43,7 @@ export const Filter = ({ mainCategory, category, products }) => {
 
     return targetReached;
   };
+
   const isBreakpoint = useMediaQuery(750);
 
   const widthMap = new Map();
@@ -61,7 +69,7 @@ export const Filter = ({ mainCategory, category, products }) => {
 
   function handleFilter(selectedOptions) {
     // Here, you can use the selectedOptions object to filter the products based on the selections made by the user.
-    console.log(selectedOptions);
+    // console.log(selectedOptions);
   }
 
   const displayFilter = () => {
@@ -69,12 +77,56 @@ export const Filter = ({ mainCategory, category, products }) => {
   };
 
   //used to keep track of the 'load more' button
+
+  const router = useRouter();
+  const {
+    // size = 'all',
+    brand = 'all',
+    query = 'all',
+    // style = 'all',
+    // skin = 'all',
+    // color = 'default',
+  } = router.query;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        if (query) {
+          const gQuery = `*[_type in ["menPant", "menBelt", "menShirt", "menBoot", "menHat"] && (name match "*${query}*" || description match "*${query}*")]`;
+
+          const products = await client.fetch(gQuery);
+          setProducts(products);
+          setTotalDisplayed(products.length < 9 ? products.length : 9);
+        } else {
+          let gQuery = `*[_type in ["menPant", "menBelt", "menShirt", "menBoot", "menHat"]]`;
+          const products = await client.fetch(gQuery);
+          setProducts(products);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchData();
+  }, [query]);
+
+  // const [totalDisplayed, setTotalDisplayed] = useState(
+  //   products.length < 9 ? products.length : 9
+  // );
   function handleNextPage() {
     setCurrentPage(currentPage + 1);
     setTotalDisplayed(Math.min(totalDisplayed + 9, products.length));
   }
 
+  // const filterSearch = ({ category }) => {
+  //   const path = router.pathname;
+  //   const { query } = router;
+  //   if (searchQuery) query.searchQuery = searchQuery;
+  //   if (category) query.category = category;
+
+  //   router.push({ pathname: path, query: query });
+  // };
   // console.log(products);
+
   return (
     <>
       {isBreakpoint ? (
@@ -111,7 +163,7 @@ export const Filter = ({ mainCategory, category, products }) => {
       ) : (
         <div className={styles.container}>
           <div className={styles.left}>
-            {category.toUpperCase()}
+            {query.toUpperCase()}
             <LeftFilter onFilter={handleFilter} />
           </div>
           <div className={styles.right}>
@@ -126,21 +178,25 @@ export const Filter = ({ mainCategory, category, products }) => {
                 />
               ))}
             </div>
-            <div class="button-container">
-              <div class="product-number">
-                Showing {totalDisplayed} of {products.length} products
+            {products.length > 0 && (
+              <div class="button-container">
+                <div class="product-number">
+                  Showing {totalDisplayed} of {products.length} products
+                </div>
+                <div>
+                  {currentPage * 9 < products.length && (
+                    <button id="filter-button-15" onClick={handleNextPage}>
+                      Load more products
+                    </button>
+                  )}
+                </div>
               </div>
-              <div>
-                {currentPage * 9 < products.length && (
-                  <button id="filter-button-15" onClick={handleNextPage}>
-                    Load more products
-                  </button>
-                )}
-              </div>
-            </div>
+            )}
           </div>
         </div>
       )}
     </>
   );
 };
+
+export default SearchComponent;

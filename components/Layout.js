@@ -1,11 +1,31 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
+import React, { useState } from 'react';
 import styles from '../styles/layout.module.css';
-import Cart from '../images/Cart.png';
+import Cart from '../public/Cart.png';
+import { client } from '../lib/client';
+
+import { useStateContext } from '../context/StateContext';
+import { useRouter } from 'next/router';
 
 export default function Layout({ children, title }) {
+  const { showCart, setShowCart, totalQuantities } = useStateContext();
+  const [query, setQuery] = useState('');
+
+  const router = useRouter();
+
+  const handleChange = (e) => {
+    e.preventDefault();
+    setQuery(e.target.value);
+  };
+
+  function handleFilterSearch(e) {
+    e.preventDefault();
+    router.push(`/search?query=${query}`);
+    console.log(query);
+  }
+
   return (
     <>
       <Head>
@@ -22,48 +42,56 @@ export default function Layout({ children, title }) {
             </div>
             <div className={styles.float2}>
               <div className={styles.searchContainer}>
-                <input
-                  className={styles.search}
-                  type="text"
-                  placeholder="Search"
-                />
-              </div>
-              <div>
-                <a className={styles.cart} href="/cart">
-                  <Image
-                    src={Cart}
-                    alt="Cart"
-                    width={28}
-                    height={25}
-                    className={styles.cart}
+                <form onSubmit={handleFilterSearch}>
+                  <input
+                    className={styles.search}
+                    id="query"
+                    placeholder="Search"
+                    onChange={handleChange}
                   />
-                </a>
+                </form>
+              </div>
+
+              <div className={styles.cartContainer}>
+                <div className={styles.cart}>
+                  <a href="/cart">
+                    <div className={styles.cartImage}>
+                      <Image
+                        src={Cart}
+                        alt="Cart"
+                        width={28}
+                        height={25}
+                        className={styles.cartImage}
+                      />
+                      <span>{totalQuantities}</span>
+                    </div>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
-          <nav className={styles.nav}>
-            <div className={styles.navs2}>
-              <div className={styles.list}>
-                <ul className={styles.ul}>
-                  <li className={styles.li}>
-                    <a href="/men">MEN</a>
-                  </li>
-                  <li className={styles.li}>
-                    <a href="/women">WOMEN</a>
-                  </li>
-                  <li className={styles.li}>
-                    <a href="/kids">KIDS</a>
-                  </li>
-                  <li className={styles.li}>
-                    <a href="/specials">SALE</a>
-                  </li>
-                  <li className={styles.li}>
-                    <a href="#home">FILLER</a>
-                  </li>
-                </ul>
-              </div>
+
+          <div className={styles.navs2}>
+            <div className={styles.list}>
+              <ul className={styles.ul}>
+                <li className={styles.li}>
+                  <a href="/men">MEN</a>
+                </li>
+                <li className={styles.li}>
+                  <a href="/women">WOMEN</a>
+                </li>
+                <li className={styles.li}>
+                  <a href="/kids">KIDS</a>
+                </li>
+                <li className={styles.li}>
+                  <a href="/specials">SALE</a>
+                </li>
+                <li className={styles.li}>
+                  <a href="#home">FILLER</a>
+                </li>
+              </ul>
             </div>
-          </nav>
+          </div>
         </header>
         <main className={styles.contentContainer}>{children}</main>
         <footer className={styles.footer}>

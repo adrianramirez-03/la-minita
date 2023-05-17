@@ -101,3 +101,11 @@
     font-size: 20px;
   }
 }
+
+@media screen and (max-width: 500px) {
+  .li {
+    display: inline;
+    padding-right: 23px;
+    font-size: 16px;
+  }
+}

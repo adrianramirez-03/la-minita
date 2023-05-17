@@ -23,17 +23,18 @@ const Home = ({ products, bannerData, menProducts }) => {
 
 //grabbing data from sanity client using getserversideprops
 export const getServerSideProps = async () => {
-  const query = '*[_type == "product"]';
-  const products = await client.fetch(query);
+  // const query = '*[_type == "product"]';
+  // const products = await client.fetch(query);
 
-  const menQuery = '*[_type == "men"]';
-  const menProducts = await client.fetch(menQuery);
+  // const menQuery = '*[_type == "men"]';
+  // const menProducts = await client.fetch(menQuery);
 
   const bannerQuery = '*[_type == "banner"]';
   const bannerData = await client.fetch(bannerQuery);
 
   return {
-    props: { products, bannerData, menProducts },
+    // props: { products, bannerData, menProducts },
+    props: { bannerData },
   };
 };
 
