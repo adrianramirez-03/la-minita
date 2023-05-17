@@ -92,7 +92,8 @@ const SearchComponent = ({ mainCategory, header }) => {
     const fetchData = async () => {
       try {
         if (query) {
-          let gQuery = `*[_type in ["menPant", "menBelt", "menShirt", "menBoot", "menHat"] && name match "${query}*"]`;
+          const gQuery = `*[_type in ["menPant", "menBelt", "menShirt", "menBoot", "menHat"] && (name match "*${query}*" || description match "*${query}*")]`;
+
           const products = await client.fetch(gQuery);
           setProducts(products);
           setTotalDisplayed(products.length < 9 ? products.length : 9);

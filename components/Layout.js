@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import styles from '../styles/layout.module.css';
-import Cart from '../images/Cart.png';
+import Cart from '../public/Cart.png';
 import { client } from '../lib/client';
 
 import { useStateContext } from '../context/StateContext';
@@ -55,14 +55,16 @@ export default function Layout({ children, title }) {
               <div className={styles.cartContainer}>
                 <div className={styles.cart}>
                   <a href="/cart">
-                    <Image
-                      src={Cart}
-                      alt="Cart"
-                      width={28}
-                      height={25}
-                      className={styles.cart}
-                    />
-                    <span>{totalQuantities}</span>
+                    <div className={styles.cartImage}>
+                      <Image
+                        src={Cart}
+                        alt="Cart"
+                        width={28}
+                        height={25}
+                        className={styles.cartImage}
+                      />
+                      <span>{totalQuantities}</span>
+                    </div>
                   </a>
                 </div>
               </div>
