@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { urlFor } from '../../lib/client';
 import styles from '../../styles/productpage.module.css';
 import Link from 'next/link';
 import { useStateContext } from '../../context/StateContext';
 import toast from 'react-hot-toast';
-import Image from 'next/image';
+// import Image from 'next/image';
 
 export const ProductPage = ({ product, width, height, mainCategory }) => {
   const [selectedSize, setSelectedSize] = useState(''); //keep track of size selected
@@ -43,23 +43,22 @@ export const ProductPage = ({ product, width, height, mainCategory }) => {
   // }, [selectedSize]);
 
   //height and width map to pass specific sizes for each category
-  const widthMap = new Map();
-  const heightMap = new Map();
+  // const widthMap = new Map();
+  const widthMap = {
+    hats: 85,
+    pants: 75,
+    shirts: 70,
+    boots: 75,
+    belts: 75,
+  };
+  const heightMap = {
+    hats: 65,
+    pants: 75,
+    shirts: 75,
+    boots: 75,
+    belts: 65,
+  };
 
-  widthMap['hats'] = 85;
-  heightMap['hats'] = 65;
-
-  widthMap['pants'] = 75;
-  heightMap['pants'] = 75;
-
-  widthMap['shirts'] = 70;
-  heightMap['shirts'] = 75;
-
-  widthMap['boots'] = 75;
-  heightMap['boots'] = 75;
-
-  widthMap['belts'] = 75;
-  heightMap['belts'] = 65;
   //
 
   const { decQty, incQty, qty, setQty, onAdd } = useStateContext();
@@ -74,7 +73,7 @@ export const ProductPage = ({ product, width, height, mainCategory }) => {
           </Link>{' '}
           /{' '}
           <Link href={`/${mainCategory}/${product.itemCategory}`}>
-            <a className={styles.customLink}>All Men's Boots</a>
+            <a className={styles.customLink}>All Mens Boots</a>
           </Link>
         </div>
 

@@ -38,8 +38,8 @@ export const Filter = ({ mainCategory, category, products }) => {
   };
   const isBreakpoint = useMediaQuery(750);
 
-  const widthMap = new Map();
-  const heightMap = new Map();
+  const widthMap = {};
+  const heightMap = {};
   products.forEach((product) => {
     if (product.itemCategory == 'pants') {
       widthMap[product.itemCategory] = 275;

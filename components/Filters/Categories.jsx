@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from '../../styles/filter.module.css';
+import Link from 'next/link';
 
 export const Categories = () => {
   return (
@@ -8,19 +9,19 @@ export const Categories = () => {
         <div className={styles.list}>
           <ul className={styles.ul}>
             <li className={styles.li}>
-              <a href="/men/hats">HATS</a>
+              <Link href="/men/hats">HATS</Link>
             </li>
             <li className={styles.li}>
-              <a href="/men/shirts">SHIRTS</a>
+              <Link href="/men/shirts">SHIRTS</Link>
             </li>
             <li className={styles.li}>
-              <a href="/men/belts">BELTS</a>
+              <Link href="/men/belts">BELTS</Link>
             </li>
             <li className={styles.li}>
-              <a href="/men/pants">PANTS</a>
+              <Link href="/men/pants">PANTS</Link>
             </li>
             <li className={styles.li}>
-              <a href="/men/boots">BOOTS</a>
+              <Link href="/men/boots">BOOTS</Link>
             </li>
           </ul>
         </div>

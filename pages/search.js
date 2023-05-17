@@ -1,8 +1,8 @@
 import React from 'react';
 import { Layout } from '../components';
-import { LeftFilter } from '../components/Filters/LeftFilter';
+// import { LeftFilter } from '../components/Filters/LeftFilter';
 import SearchComponent from '../components/Search/SearchComponent';
-import { client } from '../lib/client';
+// import { client } from '../lib/client';
 
 const search = () => {
   return (

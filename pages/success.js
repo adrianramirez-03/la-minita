@@ -1,9 +1,10 @@
 import Link from 'next/link';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Layout } from '../components';
 import styles from '../styles/success.module.css';
 import { CheckmarkIcon } from 'react-hot-toast';
-import { toast } from 'react-hot-toast';
+// import { toast } from 'react-hot-toast';
+
 const Success = () => {
   if (typeof window !== 'undefined' && window.localStorage) {
     const checkoutSuccessful = localStorage.getItem('checkoutSuccessful');

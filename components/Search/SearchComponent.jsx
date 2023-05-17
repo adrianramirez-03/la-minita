@@ -4,10 +4,10 @@ import styles from '../../styles/filter.module.css';
 import Product from '../Product';
 import { LeftFilter } from '../Filters/LeftFilter';
 import { useRouter } from 'next/router';
-import axios from 'axios';
+// import axios from 'axios';
 import { client } from '../../lib/client';
 
-const SearchComponent = ({ mainCategory, header }) => {
+const SearchComponent = ({ mainCategory }) => {
   const [isShown, setIsShown] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [products, setProducts] = useState([]);
@@ -46,8 +46,8 @@ const SearchComponent = ({ mainCategory, header }) => {
 
   const isBreakpoint = useMediaQuery(750);
 
-  const widthMap = new Map();
-  const heightMap = new Map();
+  const widthMap = {};
+  const heightMap = {};
   products.forEach((product) => {
     if (product.itemCategory == 'pants') {
       widthMap[product.itemCategory] = 275;
@@ -69,7 +69,7 @@ const SearchComponent = ({ mainCategory, header }) => {
 
   function handleFilter(selectedOptions) {
     // Here, you can use the selectedOptions object to filter the products based on the selections made by the user.
-    // console.log(selectedOptions);
+    console.log(selectedOptions);
   }
 
   const displayFilter = () => {
@@ -81,7 +81,7 @@ const SearchComponent = ({ mainCategory, header }) => {
   const router = useRouter();
   const {
     // size = 'all',
-    brand = 'all',
+    // brand = 'all',
     query = 'all',
     // style = 'all',
     // skin = 'all',

@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../../styles/homecategories.module.css';
+// import styles from '../../styles/homecategories.module.css';
 
 export const Categories = () => {
   return (

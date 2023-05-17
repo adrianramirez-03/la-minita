@@ -4,18 +4,7 @@ import { urlFor } from '../lib/client';
 
 const Product = ({
   mainCategory,
-  product: {
-    image,
-    name,
-    itemCategory,
-    sizes,
-    width,
-    length,
-    slug,
-    price,
-    savings,
-    savingsAmount,
-  },
+  product: { image, name, itemCategory, slug, price, savings, savingsAmount },
   productWidth,
   productHeight,
 }) => {

@@ -4,13 +4,13 @@ import Link from 'next/link';
 import React, { useState } from 'react';
 import styles from '../styles/layout.module.css';
 import Cart from '../public/Cart.png';
-import { client } from '../lib/client';
+// import { client } from '../lib/client';
 
 import { useStateContext } from '../context/StateContext';
 import { useRouter } from 'next/router';
 
 export default function Layout({ children, title }) {
-  const { showCart, setShowCart, totalQuantities } = useStateContext();
+  const { totalQuantities } = useStateContext();
   const [query, setQuery] = useState('');
 
   const router = useRouter();
@@ -38,7 +38,7 @@ export default function Layout({ children, title }) {
         <header className={styles.header}>
           <div className={styles.navs1}>
             <div className={styles.float1}>
-              <a href="/">LOGO</a>
+              <Link href="/">LOGO</Link>
             </div>
             <div className={styles.float2}>
               <div className={styles.searchContainer}>
@@ -54,7 +54,7 @@ export default function Layout({ children, title }) {
 
               <div className={styles.cartContainer}>
                 <div className={styles.cart}>
-                  <a href="/cart">
+                  <Link href="/cart">
                     <div className={styles.cartImage}>
                       <Image
                         src={Cart}
@@ -65,7 +65,7 @@ export default function Layout({ children, title }) {
                       />
                       <span>{totalQuantities}</span>
                     </div>
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -75,19 +75,19 @@ export default function Layout({ children, title }) {
             <div className={styles.list}>
               <ul className={styles.ul}>
                 <li className={styles.li}>
-                  <a href="/men">MEN</a>
+                  <Link href="/men">MEN</Link>
                 </li>
                 <li className={styles.li}>
-                  <a href="/women">WOMEN</a>
+                  <Link href="/women">WOMEN</Link>
                 </li>
                 <li className={styles.li}>
-                  <a href="/kids">KIDS</a>
+                  <Link href="/kids">KIDS</Link>
                 </li>
                 <li className={styles.li}>
-                  <a href="/specials">SALE</a>
+                  <Link href="/specials">SALE</Link>
                 </li>
                 <li className={styles.li}>
-                  <a href="#home">FILLER</a>
+                  <Link href="#home">FILLER</Link>
                 </li>
               </ul>
             </div>

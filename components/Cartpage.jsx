@@ -1,11 +1,11 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React from 'react';
 import Link from 'next/link';
-import toast from 'react-hot-toast';
+// import toast from 'react-hot-toast';
 import styles from '../styles/cart.module.css';
 import { useStateContext } from '../context/StateContext';
 import { urlFor } from '../lib/client';
 import getStripe from '../lib/getStripe';
-import Cookies from 'js-cookie';
+// import Cookies from 'js-cookie';
 
 const Cartpage = () => {
   // const [cart, setCart] = useState([]);

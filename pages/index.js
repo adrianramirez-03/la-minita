@@ -1,9 +1,9 @@
 import React from 'react';
-import { Product, FooterBanner, HeroBanner, Layout } from '../components';
+import { HeroBanner, Layout } from '../components';
 import { Categories } from '../components/Homepage/Categories';
 import { client } from '../lib/client';
 
-const Home = ({ products, bannerData, menProducts }) => {
+const Home = ({ bannerData }) => {
   return (
     <>
       <Layout title="Home">
